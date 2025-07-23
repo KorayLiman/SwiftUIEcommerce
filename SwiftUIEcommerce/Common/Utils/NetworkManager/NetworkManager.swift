@@ -54,6 +54,8 @@ final class NetworkManager {
             urlRequest.httpBody = try? JSONEncoder().encode(parameters!)
         }
 
+    
+
         let response = await AF.request(urlRequest)
             .validate()
             .serializingDecodable(BaseResponse<T>.self).response
@@ -85,13 +87,4 @@ final class NetworkManager {
     }
 }
 
-private struct NetworkManagerKey: EnvironmentKey {
-    static let defaultValue = NetworkManager(baseURL: "", loader: ECLoader(), authStore: AuthStore(), userDefaultsManager: UserDefaultsManager())
-}
 
-extension EnvironmentValues {
-    var networkManager: NetworkManager {
-        get { self[NetworkManagerKey.self] }
-        set { self[NetworkManagerKey.self] = newValue }
-    }
-}

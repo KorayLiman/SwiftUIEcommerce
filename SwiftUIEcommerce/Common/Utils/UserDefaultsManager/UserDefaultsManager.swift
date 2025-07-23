@@ -29,13 +29,3 @@ final class UserDefaultsManager {
     }
 }
 
-enum UserDefaultsManagerKey: EnvironmentKey {
-    static var defaultValue = UserDefaultsManager()
-}
-
-extension EnvironmentValues {
-    var userDefaultsManager: UserDefaultsManager {
-        get { self[UserDefaultsManagerKey.self] }
-        set { self[UserDefaultsManagerKey.self] = newValue }
-    }
-}
