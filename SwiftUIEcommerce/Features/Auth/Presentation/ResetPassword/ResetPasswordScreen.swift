@@ -62,7 +62,7 @@ struct ResetPasswordScreen: View {
         }
         .padding(.all, 24)
         .navigationTitle("L.ResetPassword")
-        .navigationBarTitleDisplayMode(.inline)
+       
     }
 }
 

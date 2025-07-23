@@ -55,7 +55,7 @@ struct ForgotPasswordScreen: View {
         }
         .padding(.all, 24)
         .navigationTitle("L.ForgotPassword")
-        .navigationBarTitleDisplayMode(.inline)
+        
     }
 }
 

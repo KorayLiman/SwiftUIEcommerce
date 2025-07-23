@@ -56,7 +56,7 @@ struct LoginScreen: View {
             .animation(.default, value: selectedTab)
         }
         .navigationTitle("SwiftUI Ecommerce")
-        .navigationBarTitleDisplayMode(.inline)
+        
         .padding(.horizontal)
     }
 }

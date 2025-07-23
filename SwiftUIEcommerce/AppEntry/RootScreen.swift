@@ -54,7 +54,9 @@ struct RootScreen: View {
                     ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber)
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
+      
         .overlay {
             if let toast = toastManager.getActiveToast {
                 VStack {

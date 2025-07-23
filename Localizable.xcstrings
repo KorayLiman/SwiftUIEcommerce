@@ -10,6 +10,23 @@
     "Home3" : {
 
     },
+    "L.All" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümü"
+          }
+        }
+      }
+    },
     "L.AnErrorOccured" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -26,6 +43,9 @@
           }
         }
       }
+    },
+    "L.Cart" : {
+
     },
     "L.Code" : {
       "localizations" : {
@@ -253,6 +273,12 @@
           }
         }
       }
+    },
+    "L.Products" : {
+
+    },
+    "L.Profile" : {
+
     },
     "L.Register" : {
       "localizations" : {

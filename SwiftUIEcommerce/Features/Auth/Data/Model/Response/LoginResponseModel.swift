@@ -12,11 +12,5 @@ struct LoginResponseModel: Codable, Equatable {
     let privacyAgreementHasBeenApproved: Bool?
     let userAgreementHasBeenApproved: Bool?
 
-    static func == (lhs: LoginResponseModel, rhs: LoginResponseModel) -> Bool {
-        return lhs.accessToken == rhs.accessToken &&
-            lhs.refreshToken == rhs.refreshToken &&
-            lhs.user == rhs.user &&
-            lhs.privacyAgreementHasBeenApproved == rhs.privacyAgreementHasBeenApproved &&
-            lhs.userAgreementHasBeenApproved == rhs.userAgreementHasBeenApproved
-    }
+  
 }

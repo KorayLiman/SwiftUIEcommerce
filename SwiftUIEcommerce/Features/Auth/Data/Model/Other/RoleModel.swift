@@ -7,8 +7,4 @@
 
 struct RoleModel: Codable, Equatable {
     let name: String?
-
-    static func == (lhs: RoleModel, rhs: RoleModel) -> Bool {
-        return lhs.name == rhs.name
-    }
 }
