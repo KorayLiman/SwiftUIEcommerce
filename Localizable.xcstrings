@@ -4,7 +4,10 @@
     "" : {
 
     },
-    "Go to Product List" : {
+    "Home2" : {
+
+    },
+    "Home3" : {
 
     },
     "L.AnErrorOccured" : {
@@ -20,6 +23,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bir Hata Oluştu"
+          }
+        }
+      }
+    },
+    "L.Code" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kod"
+          }
+        }
+      }
+    },
+    "L.Confirm" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onayla"
+          }
+        }
+      }
+    },
+    "L.ConfirmNewPassword" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm New Password"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni Şifre Tekrarı"
           }
         }
       }
@@ -121,6 +172,22 @@
         }
       }
     },
+    "L.NewPassword" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Password"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni Şifre"
+          }
+        }
+      }
+    },
     "L.Next" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -199,6 +266,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kayıt Ol"
+          }
+        }
+      }
+    },
+    "L.ResetPassword" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Password"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifre Sıfırla"
+          }
+        }
+      }
+    },
+    "L.ResetPasswordDescriptionText" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter the code sent and provide new password."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lütfen gönderilen kodu giriniz ve yeni şifre belirleyiniz."
           }
         }
       }

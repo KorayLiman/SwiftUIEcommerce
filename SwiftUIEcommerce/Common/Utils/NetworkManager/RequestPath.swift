@@ -9,4 +9,6 @@ enum RequestPath: String {
     case login = "auth/login"
     case register = "auth/register"
     case sendOtpCode = "auth/send-otp-code"
+    case forgotPassword = "auth/forgot-password"
+    case category = "category"
 }

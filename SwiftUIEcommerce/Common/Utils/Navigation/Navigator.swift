@@ -14,7 +14,7 @@ final class Navigator {
     func push(_ route: Route) {
         path.append(route)
     }
-    
+
     func replaceCurrent(_ route: Route) {
         guard !path.isEmpty else { return }
         path[path.count - 1] = route

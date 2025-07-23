@@ -5,7 +5,7 @@
 //  Created by Koray Liman on 16.07.2025.
 //
 
-final class LoginResponseModel: Codable, Equatable {
+struct LoginResponseModel: Codable, Equatable {
     let accessToken: String?
     let refreshToken: String?
     let user: UserModel?

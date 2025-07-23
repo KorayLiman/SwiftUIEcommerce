@@ -14,11 +14,7 @@ struct ForgotPasswordScreen: View {
     @Environment(\.networkManager) private var networkManager
     @Environment(ToastManager.self) private var toastManager
     @Environment(\.rootNavigator) private var navigator
-
-    enum Field {
-        case phoneCode
-        case phoneNumber
-    }
+    @Environment(ECLoader.self) private var loader
 
     var body: some View {
         VStack(spacing: 16) {
@@ -51,16 +47,7 @@ struct ForgotPasswordScreen: View {
             }
 
             ECFilledButton(label: "L.Next", maxWidth: .infinity) {
-                focusedField = nil
-                Task {
-                    let sendOtpCodeRequestModel = SendOtpCodeRequestModel(phoneCode: phoneCode, phoneNumber: phoneNumber)
-                    let res = await networkManager.requestWithLoader(path: .sendOtpCode, method: .post,
-                                                                     parameters: sendOtpCodeRequestModel).showMessage(toastManager)
-
-                    if res.isSuccess {
-                        navigator.replaceCurrent(.resetPassword)
-                    }
-                }
+                sendOtpCode()
             }
             .disabled(phoneNumber.isEmpty || phoneCode.isEmpty)
 
@@ -68,9 +55,33 @@ struct ForgotPasswordScreen: View {
         }
         .padding(.all, 24)
         .navigationTitle("L.ForgotPassword")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private extension ForgotPasswordScreen {
+    func sendOtpCode() {
+        focusedField = nil
+        Task {
+            let sendOtpCodeRequestModel = SendOtpCodeRequestModel(phoneCode: phoneCode, phoneNumber: phoneNumber)
+            let res = await withLoader(loader: loader) {
+                await networkManager.request(path: .sendOtpCode, method: .post,
+                                             parameters: sendOtpCodeRequestModel).showMessage(toastManager)
+            }
+
+            if res.isSuccess {
+                navigator.replaceCurrent(.resetPassword(phoneCode: phoneCode, phoneNumber: phoneNumber))
+            }
+        }
     }
 }
 
 #Preview {
-    ForgotPasswordScreen()
+    NavigationStack {
+        ForgotPasswordScreen()
+            .environment(\.networkManager, NetworkManager(baseURL: "", loader: ECLoader(), authStore: AuthStore(), userDefaultsManager: UserDefaultsManager()))
+            .environment(ToastManager())
+            .environment(\.rootNavigator, Navigator())
+            .environment(ECLoader())
+    }
 }

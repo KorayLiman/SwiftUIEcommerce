@@ -27,7 +27,6 @@ struct RootScreen: View {
         self.authStore = authStore
         self.rootNavigator = rootNavigator
         self.userDefaultsManager = userDefaultsManager
-
         self.networkManager = NetworkManager(baseURL: AppConstants.baseUrl, loader: loader, authStore: authStore, userDefaultsManager: userDefaultsManager)
     }
 
@@ -51,8 +50,8 @@ struct RootScreen: View {
                     Text("productDetail")
                 case .forgotPassword:
                     ForgotPasswordScreen()
-                case .resetPassword:
-                    ResetPasswordScreen()
+                case .resetPassword(let phoneCode, let phoneNumber):
+                    ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber)
                 }
             }
         }
@@ -61,18 +60,15 @@ struct RootScreen: View {
                 VStack {
                     Spacer()
                     ECToastView(toast: toast)
-                        .zIndex(ZIndex.toast)
                         .padding(.bottom, 16)
                 }
             }
         }
 
         .overlay {
-            // loader
             if loader.isActive {
                 ZStack {
                     Color.black.opacity(0.5)
-
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .padding()
@@ -80,7 +76,6 @@ struct RootScreen: View {
                         .cornerRadius(8)
                 }
                 .edgesIgnoringSafeArea(.all)
-                .zIndex(ZIndex.loader)
             }
         }
 
@@ -106,15 +101,12 @@ struct RootScreen: View {
     }
 }
 
-struct HomeScreen: View {
-    @Environment(AuthStore.self) private var authStore
-    var body: some View {
-        Button("Go to Product List") {
-            authStore.authState = .unAuthenticated
-        }
-    }
-}
-
 #Preview {
-    HomeScreen()
+    RootScreen()
+        .environment(\.rootNavigator, Navigator())
+        .environment(AuthStore())
+        .environment(\.networkManager, NetworkManager(baseURL: "", loader: ECLoader(), authStore: AuthStore(), userDefaultsManager: UserDefaultsManager()))
+        .environment(ECLoader())
+        .environment(ToastManager())
+        .environment(\.userDefaultsManager, UserDefaultsManager())
 }

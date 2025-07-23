@@ -9,5 +9,5 @@ enum Route: Hashable {
     case forgotPassword
     case productList
     case productDetail
-    case resetPassword
+    case resetPassword(phoneCode: String, phoneNumber: String)
 }

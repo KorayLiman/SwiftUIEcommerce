@@ -46,15 +46,18 @@ final class NetworkManager {
         urlRequest.headers = mergedHeaders
         urlRequest.timeoutInterval = 30
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let params = parameters {
+            
+            if method == .get {
+                urlRequest = try! URLEncodedFormParameterEncoder.default.encode(params, into: urlRequest)
 
-        if method == .get, let parameters = parameters {
-            urlRequest = try! URLEncodedFormParameterEncoder.default.encode(parameters, into: urlRequest)
-
-        } else {
-            urlRequest.httpBody = try? JSONEncoder().encode(parameters!)
+            } else {
+                urlRequest.httpBody = try? JSONEncoder().encode(params)
+            }
         }
 
-    
+      
 
         let response = await AF.request(urlRequest)
             .validate()
@@ -78,13 +81,4 @@ final class NetworkManager {
             return BaseResponse(data: nil, success: false, messages: messages, statusCode: error.responseCode, error: error)
         }
     }
-
-    func requestWithLoader<T: Decodable>(_ type: T.Type = NullData.self, path: RequestPath, method: HTTPMethod = .get, parameters: Encodable? = nil, headers: HTTPHeaders? = nil) async -> BaseResponse<T> {
-        loader.show()
-        let response: BaseResponse<T> = await request(type, path: path, method: method, parameters: parameters, headers: headers)
-        loader.hide()
-        return response
-    }
 }
-
-

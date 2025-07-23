@@ -25,4 +25,6 @@ struct SplashScreen: View {
 
 #Preview {
     SplashScreen()
+        .environment(AuthStore())
+        .environment(\.userDefaultsManager, UserDefaultsManager())
 }

@@ -72,11 +72,6 @@ private struct LoginTabView: View {
     @Environment(AuthStore.self) private var authStore
     @Environment(\.rootNavigator) private var rootNavigator
 
-    enum Field: Hashable {
-        case username
-        case password
-    }
-
     var body: some View {
         ScrollView {
             VStack(spacing: 12) {
@@ -103,18 +98,7 @@ private struct LoginTabView: View {
                 }
 
                 ECFilledButton(label: "L.Login", maxWidth: .infinity) {
-                    focusedField = nil
-
-                    Task {
-                        let loginRequestModel = LoginRequestModel(username: username, password: password)
-
-                        let response = await networkManager.requestWithLoader(LoginResponseModel.self, path: .login, method: .post, parameters: loginRequestModel).showMessage(toastManager)
-
-                        if response.isSuccess, let data = response.data {
-                            authStore.authState = .authenticated(data)
-                        }
-                    }
-
+                    login()
                 }.disabled(username.isEmpty || password.isEmpty)
             }
         }
@@ -136,17 +120,7 @@ private struct RegisterTabView: View {
     @Environment(ToastManager.self) private var toastManager
     @Environment(AuthStore.self) private var authStore
     @Environment(\.networkManager) private var networkManager
-
-    enum Field: Hashable {
-        case phoneCode
-        case phoneNumber
-        case username
-        case password
-        case confirmPassword
-        case name
-        case surname
-        case email
-    }
+    @Environment(ECLoader.self) private var loader
 
     var body: some View {
         ScrollView {
@@ -238,35 +212,79 @@ private struct RegisterTabView: View {
                 }.padding(.horizontal, 12)
 
                 ECFilledButton(label: "L.Register", maxWidth: .infinity) {
-                    focusedField = nil
-                    var errorMessages: [String] = []
-
-                    if password != confirmPassword {
-                        errorMessages.append("L.PasswordsDoNotMatch")
-                    }
-
-                    if !email.isValidEmail {
-                        errorMessages.append("L.InvalidEmail")
-                    }
-                    if errorMessages.count > 0 {
-                        toastManager.showToast(ECToast(style: .error, message: errorMessages.joined(separator: "\n")))
-                    } else {
-                        Task {
-                            let registerRequestModel = RegisterRequestModel(name: name, surname: surname, email: email, phoneCode: phoneCode, phoneNumber: phoneNumber, username: username, password: password)
-                            let response: BaseResponse<UserModel> = await networkManager.requestWithLoader(UserModel.self, path: .register, method: .post, parameters: registerRequestModel).showMessage(toastManager)
-
-                            if response.isSuccess {
-                                let loginRequestModel = LoginRequestModel(username: username, password: password)
-                                let loginResponse: BaseResponse<LoginResponseModel> = await networkManager.requestWithLoader(LoginResponseModel.self, path: .login, method: .post, parameters: loginRequestModel).showMessage(toastManager)
-
-                                if loginResponse.isSuccess, let data = loginResponse.data {
-                                    authStore.authState = .authenticated(data)
-                                }
-                            }
-                        }
-                    }
+                    register()
 
                 }.disabled(phoneCode.isEmpty || phoneNumber.isEmpty || username.isEmpty || password.isEmpty || confirmPassword.isEmpty || name.isEmpty || surname.isEmpty || email.isEmpty || !isUserAgreementAccepted || !isPrivacyPolicyAccepted)
+            }
+        }
+    }
+}
+
+private extension LoginTabView {
+    func login() {
+        focusedField = nil
+
+        Task {
+            let loginRequestModel = LoginRequestModel(username: username, password: password)
+
+            let response = await withLoader(loader: loader) {
+                await networkManager.request(LoginResponseModel.self, path: .login, method: .post, parameters: loginRequestModel).showMessage(toastManager)
+            }
+
+            if response.isSuccess, let data = response.data {
+                authStore.authState = .authenticated(data)
+            }
+        }
+    }
+}
+
+private extension RegisterTabView {
+    func register() {
+        focusedField = nil
+        var errorMessages: [String] = []
+
+        if password != confirmPassword {
+            errorMessages.append("L.PasswordsDoNotMatch")
+        }
+
+        if !email.isValidEmail {
+            errorMessages.append("L.InvalidEmail")
+        }
+
+        if errorMessages.count > 0 {
+            toastManager.showToast(ECToast(style: .error, message: errorMessages.joined(separator: "\n")))
+            return
+        }
+
+        Task {
+            let registerRequestModel = RegisterRequestModel(
+                name: name,
+                surname: surname,
+                email: email,
+                phoneCode: phoneCode,
+                phoneNumber: phoneNumber,
+                username: username,
+                password: password
+            )
+
+            let response = await withLoader(loader: loader) {
+                await networkManager
+                    .request(UserModel.self, path: .register, method: .post, parameters: registerRequestModel)
+                    .showMessage(toastManager)
+            }
+
+            if response.isSuccess {
+                let loginRequestModel = LoginRequestModel(username: username, password: password)
+
+                let loginResponse = await withLoader(loader: loader) {
+                    await networkManager
+                        .request(LoginResponseModel.self, path: .login, method: .post, parameters: loginRequestModel)
+                        .showMessage(toastManager)
+                }
+
+                if loginResponse.isSuccess, let data = loginResponse.data {
+                    authStore.authState = .authenticated(data)
+                }
             }
         }
     }
@@ -275,5 +293,11 @@ private struct RegisterTabView: View {
 #Preview {
     NavigationStack {
         LoginScreen()
+            .environment(\.networkManager, NetworkManager(baseURL: "", loader: ECLoader(), authStore: AuthStore(), userDefaultsManager: UserDefaultsManager()))
+            .environment(ToastManager())
+            .environment(\.rootNavigator, Navigator())
+            .environment(ECLoader())
+            .environment(\.userDefaultsManager, UserDefaultsManager())
+            .environment(AuthStore())
     }
 }

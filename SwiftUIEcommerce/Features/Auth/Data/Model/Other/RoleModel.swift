@@ -5,7 +5,7 @@
 //  Created by Koray Liman on 16.07.2025.
 //
 
-final class RoleModel: Codable, Equatable {
+struct RoleModel: Codable, Equatable {
     let name: String?
 
     static func == (lhs: RoleModel, rhs: RoleModel) -> Bool {
