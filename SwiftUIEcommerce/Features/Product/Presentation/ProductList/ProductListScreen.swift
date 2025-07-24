@@ -26,11 +26,11 @@ private struct CategoriesHStackView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
                 ForEach(categories, id: \.self) { (category: CategoryResponseModel) in
-                    Text(category.name ?? "")
+                    ECText(label:category.name ?? "", foregroundColor: selectedCategory == category ? .onAccent : .primary)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
                         .background(selectedCategory == category ? .accent : .secondary.opacity(0.2))
-                        .foregroundColor(selectedCategory == category ? .onAccent : .primary)
+                       
                         .cornerRadius(20)
                         .onTapGesture {
                             selectedCategory = category
@@ -54,9 +54,15 @@ private struct ProductsListView: View {
 
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 16) {
+            LazyVStack {
                 ForEach(products, id: \.self) { (product: ProductResponseModel) in
-                    Text(product.name ?? "")
+                    ProductCardView(product: product)
+                        .frame(maxWidth: .infinity)
+                                   .aspectRatio(2.5, contentMode: .fill)
+                                   .padding(.vertical, 16)
+                                   .padding(.horizontal, 24)
+                    
+                        
                 }
             }
         }.task {

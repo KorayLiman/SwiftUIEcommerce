@@ -18,9 +18,7 @@ struct ForgotPasswordScreen: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("L.ForgotPasswordDescriptionText")
-                .font(.body)
-                .foregroundColor(.secondary)
+            ECText(localizedStringKey: "L.ForgotPasswordDescriptionText", foregroundColor: .secondary, font: .body)
                 .multilineTextAlignment(.center)
                 .fontWeight(.semibold)
             HStack {

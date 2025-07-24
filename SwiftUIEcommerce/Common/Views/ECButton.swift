@@ -8,43 +8,76 @@
 import SwiftUI
 
 struct ECTextButton: View {
-    let label: LocalizedStringKey
+    let label: String?
+    let localizedStringKey: LocalizedStringKey?
     let action: () -> Void
     let maxWidth: CGFloat?
     
-    init(label: LocalizedStringKey, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
+    init(label: String, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
         self.label = label
         self.maxWidth = maxWidth
         self.action = action
+        self.localizedStringKey = nil
+    }
+    
+    init(localizedStringKey: LocalizedStringKey, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
+        self.localizedStringKey = localizedStringKey
+        self.maxWidth = maxWidth
+        self.action = action
+        self.label = nil
     }
     
     var body: some View {
         Button(action: action) {
-            Text(label)
-                .frame(maxWidth: maxWidth)
-                .font(.body)
-                .foregroundColor(.accentColor)
+            Group{
+                if let label = label {
+                    ECText(label: label, foregroundColor: .accentColor, font: .body)
+                        .frame(maxWidth: maxWidth)
+                }
+                else {
+                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .accentColor, font: .body)
+                        .frame(maxWidth: maxWidth)
+                }
+                
+                
+            }
         }
     }
 }
 
 struct ECFilledButton: View {
-    let label: LocalizedStringKey
+    let label: String?
+    let localizedStringKey: LocalizedStringKey?
     let action: () -> Void
     let maxWidth: CGFloat?
     
-    init(label: LocalizedStringKey, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
+    init(label: String, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
         self.label = label
         self.maxWidth = maxWidth
         self.action = action
+        self.localizedStringKey = nil
+    }
+    
+    init(localizedStringKey: LocalizedStringKey, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
+        self.localizedStringKey = localizedStringKey
+        self.label = nil
+        self.maxWidth = maxWidth
+        self.action = action
+      
     }
 
     var body: some View {
         Button(action: action) {
-            Text(label)
+            Group {
+                if let label = label {
+                    ECText(label: label, foregroundColor: .onAccent, font: .headline)
+                }
+                else {
+                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .onAccent, font: .headline)
+                }
+            }
+          
                 .frame(maxWidth: maxWidth)
-                .font(.headline)
-                .foregroundColor(.onAccent)
                 .padding(.vertical, 12)
                 .padding(.horizontal, 24)
                 .background(Color.accentColor)

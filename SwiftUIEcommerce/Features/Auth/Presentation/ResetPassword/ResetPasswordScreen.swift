@@ -27,9 +27,8 @@ struct ResetPasswordScreen: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("L.ResetPasswordDescriptionText")
-                .font(.body)
-                .foregroundColor(.secondary)
+            ECText(localizedStringKey: "L.ResetPasswordDescriptionText", foregroundColor: .secondary, font: .body)
+
                 .multilineTextAlignment(.center)
                 .fontWeight(.semibold)
 
@@ -62,7 +61,6 @@ struct ResetPasswordScreen: View {
         }
         .padding(.all, 24)
         .navigationTitle("L.ResetPassword")
-       
     }
 }
 

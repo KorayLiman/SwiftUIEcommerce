@@ -4,12 +4,6 @@
     "" : {
 
     },
-    "Home2" : {
-
-    },
-    "Home3" : {
-
-    },
     "L.All" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -64,6 +58,7 @@
       }
     },
     "L.Confirm" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -383,9 +378,6 @@
 
     },
     "Splash Screen" : {
-
-    },
-    "SwiftUI Ecommerce" : {
 
     }
   },

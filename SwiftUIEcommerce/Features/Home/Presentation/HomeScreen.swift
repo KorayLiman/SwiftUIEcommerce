@@ -18,11 +18,11 @@ struct HomeScreen: View {
                 .tabItem {
                     Image(systemName: "house.fill")
                 }.tag(0)
-            Text("Home2")
+            ECText(label: "Home2")
                 .tabItem {
                     Image(systemName: "person.fill")
                 }.tag(1)
-            Text("Home3")
+            ECText(label: "Home3")
                 .tabItem {
                     Image(systemName: "basket.fill")
                 }.tag(2)

@@ -36,7 +36,7 @@ final class ProductStore {
     }
 
     func getProductsByCategoryId(_ categoryId: Int) async -> [ProductResponseModel] {
-        let response = await networkManager.request([ProductResponseModel].self, path: .productByCategoryId(id: "\(categoryId)"), method: .get).showMessage(toastManager)
+        let response = await networkManager.request([ProductResponseModel].self, path: .productByCategoryId(id: categoryId), method: .get).showMessage(toastManager)
         return response.data ?? []
     }
 }

@@ -12,7 +12,9 @@ enum RequestPath {
     case forgotPassword
     case category
     case product
-    case productByCategoryId(id: String)
+    case productByCategoryId(id: Int)
+    case file(id: Int)
+    case fileByte(id: Int)
 
     var rawValue: String {
         switch self {
@@ -30,6 +32,10 @@ enum RequestPath {
             return "product"
         case .productByCategoryId(let id):
             return "product/by-category-id/\(id)"
+        case .file(let id):
+            return "file/\(id)"
+        case .fileByte(let id):
+            return "file/byte/\(id)"
         }
     }
 }

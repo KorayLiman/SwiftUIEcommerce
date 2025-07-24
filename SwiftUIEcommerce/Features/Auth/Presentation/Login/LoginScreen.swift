@@ -23,9 +23,7 @@ struct LoginScreen: View {
                                 selectedTab = index
                             }
                         }) {
-                            Text(tabs[index])
-                                .font(.headline)
-                                .foregroundColor(selectedTab == index ? Color.accentColor : .secondary)
+                            ECText(localizedStringKey: LocalizedStringKey(tabs[index]), foregroundColor: selectedTab == index ? Color.accentColor : .secondary, font: .headline)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 12)
                         }
@@ -55,8 +53,7 @@ struct LoginScreen: View {
             .padding()
             .animation(.default, value: selectedTab)
         }
-        .navigationTitle("SwiftUI Ecommerce")
-        
+        .navigationTitle(Text(verbatim: "SwiftUI Ecommerce"))
         .padding(.horizontal)
     }
 }
@@ -92,12 +89,12 @@ private struct LoginTabView: View {
 
                 HStack {
                     Spacer()
-                    ECTextButton(label: "L.ForgotPassword") {
+                    ECTextButton(localizedStringKey: "L.ForgotPassword") {
                         rootNavigator.push(.forgotPassword)
                     }
                 }
 
-                ECFilledButton(label: "L.Login", maxWidth: .infinity) {
+                ECFilledButton(localizedStringKey: "L.Login", maxWidth: .infinity) {
                     login()
                 }.disabled(username.isEmpty || password.isEmpty)
             }
@@ -203,15 +200,15 @@ private struct RegisterTabView: View {
 
                 Group {
                     Toggle(isOn: $isUserAgreementAccepted) {
-                        Text("L.UserAgreement")
+                        ECText(localizedStringKey: "L.UserAgreement")
                     }
 
                     Toggle(isOn: $isPrivacyPolicyAccepted) {
-                        Text("L.PrivacyPolicy")
+                        ECText(localizedStringKey:"L.PrivacyPolicy")
                     }
                 }.padding(.horizontal, 12)
 
-                ECFilledButton(label: "L.Register", maxWidth: .infinity) {
+                ECFilledButton(localizedStringKey: "L.Register", maxWidth: .infinity) {
                     register()
 
                 }.disabled(phoneCode.isEmpty || phoneNumber.isEmpty || username.isEmpty || password.isEmpty || confirmPassword.isEmpty || name.isEmpty || surname.isEmpty || email.isEmpty || !isUserAgreementAccepted || !isPrivacyPolicyAccepted)

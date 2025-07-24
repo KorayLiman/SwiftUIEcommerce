@@ -21,7 +21,7 @@ struct ECToastView: View {
         HStack(alignment: .center, spacing: 12) {
             Image(systemName: toast.style.iconFileName)
                 .foregroundColor(toast.style.themeColor)
-            Text(toast.message)
+            ECText(label: toast.message)
             
                 .font(.subheadline)
                 .foregroundColor(.black)
