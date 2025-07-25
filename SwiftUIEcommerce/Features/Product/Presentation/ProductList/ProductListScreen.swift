@@ -53,7 +53,7 @@ private struct ProductsListView: View {
     @Environment(ProductStore.self) private var productStore
 
     var body: some View {
-        ScrollView {
+        ECScrollView {
             LazyVStack {
                 ForEach(products, id: \.self) { (product: ProductResponseModel) in
                     ProductCardView(product: product)

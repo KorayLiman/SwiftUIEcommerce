@@ -7,16 +7,26 @@
 
 import SwiftUI
 
-struct ECScrollView<Content: View>: View {
-    let content: () -> Content
+struct ECScrollView<Content>: View where Content: View {
+    public var content: Content
+    public var axes: Axis.Set
+    public var showsIndicators: Bool
 
-    init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content
+    init(_ axes: Axis.Set = .vertical, showsIndicators: Bool = true, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self.axes = axes
+        self.showsIndicators = showsIndicators
+    }
+
+    init(_ axes: Axis.Set = .vertical, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self.axes = axes
+        self.showsIndicators = true
     }
 
     var body: some View {
-        ScrollView {
-            content()
+        ScrollView(axes, showsIndicators: showsIndicators) {
+            content
         }
         .background(.ecBackground)
     }
