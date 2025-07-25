@@ -44,7 +44,7 @@ struct ForgotPasswordScreen: View {
                     .focused($focusedField, equals: .phoneNumber)
             }
 
-            ECFilledButton(label: "L.Next", maxWidth: .infinity) {
+            ECFilledButton(localizedStringKey: "L.Next", maxWidth: .infinity) {
                 sendOtpCode()
             }
             .disabled(phoneNumber.isEmpty || phoneCode.isEmpty)

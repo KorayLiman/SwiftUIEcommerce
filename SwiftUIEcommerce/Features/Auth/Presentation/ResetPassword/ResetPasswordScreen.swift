@@ -53,7 +53,7 @@ struct ResetPasswordScreen: View {
                 .focused($focusedField, equals: .confirmPassword)
                 .padding(.bottom, 8)
 
-            ECFilledButton(label: "L.Confirm", maxWidth: .infinity) {
+            ECFilledButton(localizedStringKey: "L.Confirm", maxWidth: .infinity) {
                 resetPassword()
             }.disabled(otpCode == "" || password == "" || confirmPassword != password)
 

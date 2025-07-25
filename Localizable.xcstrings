@@ -58,7 +58,6 @@
       }
     },
     "L.Confirm" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

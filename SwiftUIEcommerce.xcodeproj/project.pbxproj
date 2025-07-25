@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		DB8078692E2544CD00D1856C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB8078682E2544CD00D1856C /* Alamofire */; };
+		DBABB2472E336F8600E2DA80 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DBABB2462E336F8100E2DA80 /* README.md */; };
 		DBB4F38C2E242768004E7835 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DBB4F38B2E242768004E7835 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DB86E2402E1FF3FC00B1B12B /* SwiftUIEcommerce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIEcommerce.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBABB2462E336F8100E2DA80 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DBB4F38B2E242768004E7835 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -20,6 +22,11 @@
 		DB86E2422E1FF3FC00B1B12B /* SwiftUIEcommerce */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SwiftUIEcommerce;
+			sourceTree = "<group>";
+		};
+		DBABB2452E336EEA00E2DA80 /* Screenshots */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Screenshots;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -39,6 +46,8 @@
 		DB86E2372E1FF3FC00B1B12B = {
 			isa = PBXGroup;
 			children = (
+				DBABB2462E336F8100E2DA80 /* README.md */,
+				DBABB2452E336EEA00E2DA80 /* Screenshots */,
 				DBB4F38B2E242768004E7835 /* Localizable.xcstrings */,
 				DB86E2422E1FF3FC00B1B12B /* SwiftUIEcommerce */,
 				DB86E2412E1FF3FC00B1B12B /* Products */,
@@ -70,6 +79,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				DB86E2422E1FF3FC00B1B12B /* SwiftUIEcommerce */,
+				DBABB2452E336EEA00E2DA80 /* Screenshots */,
 			);
 			name = SwiftUIEcommerce;
 			packageProductDependencies = (
@@ -122,6 +132,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBABB2472E336F8600E2DA80 /* README.md in Resources */,
 				DBB4F38C2E242768004E7835 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
