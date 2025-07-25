@@ -1,8 +1,8 @@
 //
-//  README.md
-//  SwiftUIEcommerce
+// README.md
+// SwiftUIEcommerce
 //
-//  Created by Koray Liman on 25.07.2025.
+// Created by Koray Liman on 25.07.2025.
 //
 
 ## 📸 Screenshots
@@ -11,7 +11,9 @@ Here are some screenshots of the application:
 
 ### 🔐 Authorization
 
-![Authorization](Screenshots/login.png)
-![Authorization](Screenshots/register.png)
-![Authorization](Screenshots/forgot_password.png)
-
+<p align="left">
+  <img src="ScreenShots/login.png" alt="Login Screen" width="200" height= "450"/>
+  <img src="ScreenShots/register.png" alt="Register Screen" width="200" height= "450"/>
+  <img src="ScreenShots/forgot_password.png" alt="Forgot Password Screen" width="200" height= "450"/>
+  <img src="ScreenShots/reset_password.png" alt="Forgot Password Screen" width="200" height= "450"/>
+</p>
