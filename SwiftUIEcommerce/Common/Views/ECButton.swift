@@ -31,11 +31,11 @@ struct ECTextButton: View {
         Button(action: action) {
             Group{
                 if let label = label {
-                    ECText(label: label, foregroundColor: .accentColor, font: .body)
+                    ECText(label: label, foregroundColor: .ecAccent, font: .body)
                         .frame(maxWidth: maxWidth)
                 }
                 else {
-                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .accentColor, font: .body)
+                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .ecAccent, font: .body)
                         .frame(maxWidth: maxWidth)
                 }
                 
@@ -70,17 +70,17 @@ struct ECFilledButton: View {
         Button(action: action) {
             Group {
                 if let label = label {
-                    ECText(label: label, foregroundColor: .onAccent, font: .headline)
+                    ECText(label: label, foregroundColor: .ecOnAccent, font: .headline)
                 }
                 else {
-                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .onAccent, font: .headline)
+                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .ecOnAccent, font: .headline)
                 }
             }
           
                 .frame(maxWidth: maxWidth)
                 .padding(.vertical, 12)
                 .padding(.horizontal, 24)
-                .background(Color.accentColor)
+                .background(.ecAccent)
                 .cornerRadius(12)
         }
     }

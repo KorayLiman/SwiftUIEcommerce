@@ -12,7 +12,6 @@ struct SwiftUIEcommerceApp: App {
     var body: some Scene {
         WindowGroup {
             RootScreen()
-              
         }
     }
 }

@@ -13,14 +13,14 @@ struct ECText: View {
     private let foregeroundColor: Color
     private let font: Font?
 
-    init(label: String, foregroundColor: Color = .onBackground, font: Font? = nil) {
+    init(label: String, foregroundColor: Color = .ecOnBackground, font: Font? = nil) {
         self.label = label
         self.localizedStringKey = nil
         self.foregeroundColor = foregroundColor
         self.font = font
     }
 
-    init(localizedStringKey: LocalizedStringKey, foregroundColor: Color = .onBackground, font: Font? = nil) {
+    init(localizedStringKey: LocalizedStringKey, foregroundColor: Color = .ecOnBackground, font: Font? = nil) {
         self.localizedStringKey = localizedStringKey
         self.label = nil
         self.foregeroundColor = foregroundColor

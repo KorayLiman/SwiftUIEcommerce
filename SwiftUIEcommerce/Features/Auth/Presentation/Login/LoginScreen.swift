@@ -23,7 +23,7 @@ struct LoginScreen: View {
                                 selectedTab = index
                             }
                         }) {
-                            ECText(localizedStringKey: LocalizedStringKey(tabs[index]), foregroundColor: selectedTab == index ? Color.accentColor : .secondary, font: .headline)
+                            ECText(localizedStringKey: LocalizedStringKey(tabs[index]), foregroundColor: selectedTab == index ? .ecAccent : .secondary, font: .headline)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 12)
                         }
@@ -32,7 +32,7 @@ struct LoginScreen: View {
                         Group {
                             if selectedTab == index {
                                 Capsule()
-                                    .fill(Color.accentColor)
+                                    .fill(.ecAccent)
                                     .matchedGeometryEffect(id: "ID", in: buttonId)
                             } else {
                                 Color.clear
@@ -43,10 +43,11 @@ struct LoginScreen: View {
                     }
                 }
             }
-            .background(Color(UIColor.systemBackground))
+
             TabView(selection: $selectedTab) {
                 LoginTabView()
                     .tag(0)
+
                 RegisterTabView()
                     .tag(1)
             }
@@ -70,7 +71,7 @@ private struct LoginTabView: View {
     @Environment(\.rootNavigator) private var rootNavigator
 
     var body: some View {
-        ScrollView {
+        ECScrollView {
             VStack(spacing: 12) {
                 ECTextField(icon: "person", placeholder: "L.Username", text: $username)
                     .focused($focusedField, equals: .username)
@@ -99,6 +100,7 @@ private struct LoginTabView: View {
                 }.disabled(username.isEmpty || password.isEmpty)
             }
         }
+      
     }
 }
 
@@ -120,7 +122,7 @@ private struct RegisterTabView: View {
     @Environment(ECLoader.self) private var loader
 
     var body: some View {
-        ScrollView {
+        ECScrollView {
             VStack(spacing: 12) {
                 HStack {
                     ECTextField(text: $phoneCode)
@@ -199,12 +201,12 @@ private struct RegisterTabView: View {
                     .focused($focusedField, equals: .email)
 
                 Group {
-                    Toggle(isOn: $isUserAgreementAccepted) {
+                    ECSwitch(isOn: $isUserAgreementAccepted) {
                         ECText(localizedStringKey: "L.UserAgreement")
                     }
 
-                    Toggle(isOn: $isPrivacyPolicyAccepted) {
-                        ECText(localizedStringKey:"L.PrivacyPolicy")
+                    ECSwitch(isOn: $isPrivacyPolicyAccepted) {
+                        ECText(localizedStringKey: "L.PrivacyPolicy")
                     }
                 }.padding(.horizontal, 12)
 

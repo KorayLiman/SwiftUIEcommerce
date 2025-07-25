@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct RootScreen: View {
     @State private var loader: ECLoader
@@ -55,8 +56,9 @@ struct RootScreen: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .background(.ecBackground)
         }
-      
+
         .overlay {
             if let toast = toastManager.getActiveToast {
                 VStack {

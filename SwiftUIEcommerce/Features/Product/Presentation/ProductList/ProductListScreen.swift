@@ -26,10 +26,10 @@ private struct CategoriesHStackView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
                 ForEach(categories, id: \.self) { (category: CategoryResponseModel) in
-                    ECText(label:category.name ?? "", foregroundColor: selectedCategory == category ? .onAccent : .primary)
+                    ECText(label:category.name ?? "", foregroundColor: selectedCategory == category ? .ecOnAccent : .primary)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
-                        .background(selectedCategory == category ? .accent : .secondary.opacity(0.2))
+                        .background(selectedCategory == category ? .ecAccent : .secondary.opacity(0.2))
                        
                         .cornerRadius(20)
                         .onTapGesture {
