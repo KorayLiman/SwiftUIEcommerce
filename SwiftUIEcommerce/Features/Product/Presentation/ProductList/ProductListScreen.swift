@@ -14,6 +14,7 @@ struct ProductListScreen: View {
             CategoriesHStackView(selectedCategory: $selectedCategory)
             ProductsListView(selectedCategory: $selectedCategory)
         }
+        .background(.ecBackgroundVariant)
     }
 }
 
@@ -23,14 +24,13 @@ private struct CategoriesHStackView: View {
     @Environment(ProductStore.self) private var productStore
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        ECScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
                 ForEach(categories, id: \.self) { (category: CategoryResponseModel) in
-                    ECText(label:category.name ?? "", foregroundColor: selectedCategory == category ? .ecOnAccent : .primary)
+                    ECText(label: category.name ?? "", foregroundColor: selectedCategory == category ? .ecOnAccent : .ecOnBackground)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
-                        .background(selectedCategory == category ? .ecAccent : .secondary.opacity(0.2))
-                       
+                        .background(selectedCategory == category ? .ecAccent : .ecBackgroundVariant2)
                         .cornerRadius(20)
                         .onTapGesture {
                             selectedCategory = category
@@ -58,13 +58,12 @@ private struct ProductsListView: View {
                 ForEach(products, id: \.self) { (product: ProductResponseModel) in
                     ProductCardView(product: product)
                         .frame(maxWidth: .infinity)
-                                   .aspectRatio(2.5, contentMode: .fill)
-                                   .padding(.vertical, 16)
-                                   .padding(.horizontal, 24)
-                    
-                        
+                        .aspectRatio(2.5, contentMode: .fill)
+                        .padding(.vertical, 2)
+                        .padding(.horizontal, 24)
                 }
             }
+
         }.task {
             let products = await productStore.getAllProducts()
             guard selectedCategory == .all() else { return }

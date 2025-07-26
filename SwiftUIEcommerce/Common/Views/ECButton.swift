@@ -85,3 +85,30 @@ struct ECFilledButton: View {
         }
     }
 }
+
+struct ECIconButton: View {
+    let iconName: String
+    let action: () -> Void
+    let size: CGFloat
+    
+    init(iconName: String, size: CGFloat = 20, action: @escaping () -> Void) {
+        self.iconName = iconName
+        self.size = size
+        self.action = action
+    }
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: iconName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: size, height: size)
+                .foregroundColor(.ecOnAccent)
+                .padding(8)
+                .background(.ecAccent)
+                .clipShape(Circle())
+        }
+    }
+}
+
+

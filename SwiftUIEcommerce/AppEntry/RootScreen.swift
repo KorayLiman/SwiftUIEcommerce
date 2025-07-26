@@ -56,7 +56,7 @@ struct RootScreen: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .background(.ecBackground)
+            .background(.ecBackgroundVariant)
         }
 
         .overlay {

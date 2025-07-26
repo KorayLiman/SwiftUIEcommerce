@@ -7,34 +7,39 @@
 
 import SwiftUI
 
-
 struct HomeScreen: View {
     @State private var selectedTab: Int = 0
     @Environment(ToastManager.self) private var toastManager
     @Environment(\.networkManager) private var networkManager
+    @State private var cartStore: CartStore
     
-   
-
-    var body: some View {
+    init() {
+     
         
+        _cartStore = State(initialValue: CartStore(networkManager: networkManager))
+    }
+    
+    var body: some View {
         TabView(selection: $selectedTab) {
             ProductListScreen()
                 .tabItem {
-                    Image(systemName: "house.fill")
-                }.tag(0)     .toolbarBackground(.ecBackground, for: .tabBar)
+                    Label("L.Products", systemImage: "house.fill")
+                }.tag(0)
             ECText(label: "Home2")
                 .tabItem {
-                    Image(systemName: "person.fill")
-                }.tag(1)     .toolbarBackground(.ecBackground, for: .tabBar)
+                    Label("L.Profile", systemImage: "person.fill")
+               
+                }.tag(1)
             ECText(label: "Home3")
                 .tabItem {
-                    Image(systemName: "basket.fill")
-                }.tag(2)     .toolbarBackground(.ecBackground, for: .tabBar)
+                    Label("L.Cart", systemImage: "cart.fill")
+                  
+                }.tag(2).toolbarBackground(.ecBackgroundVariant, for: .tabBar)
         }
    
-      
         .navigationTitle(getNavigationTitle())
         .environment(ProductStore(networkManager: networkManager, toastManager: toastManager))
+        .environment(cartStore)
     }
 }
 

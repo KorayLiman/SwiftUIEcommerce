@@ -38,7 +38,7 @@ struct ECToastView: View {
         }
         .padding()
         .frame(minWidth: 0, maxWidth: .infinity)
-        .background(.ecBackground)
+        .background(.ecBackgroundVariant)
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)

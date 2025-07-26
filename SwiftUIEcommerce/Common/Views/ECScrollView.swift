@@ -28,6 +28,6 @@ struct ECScrollView<Content>: View where Content: View {
         ScrollView(axes, showsIndicators: showsIndicators) {
             content
         }
-        .background(.ecBackground)
+        .background(.ecBackgroundVariant)
     }
 }

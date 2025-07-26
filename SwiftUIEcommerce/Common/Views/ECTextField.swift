@@ -32,6 +32,7 @@ struct ECTextField: View {
             Group {
                 if isSecure && !isTextVisible {
                     SecureField(placeholder ?? "", text: $text)
+                     
 
                 } else {
                     TextField(placeholder ?? "", text: $text)
@@ -51,7 +52,7 @@ struct ECTextField: View {
                 .padding(.trailing, 12)
             }
         }
-        .background(Color(UIColor.secondarySystemBackground))
+        .background(.ecBackgroundVariant2)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
