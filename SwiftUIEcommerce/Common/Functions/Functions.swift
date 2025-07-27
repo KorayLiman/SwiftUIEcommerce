@@ -5,8 +5,9 @@
 //  Created by Koray Liman on 23.07.2025.
 //
 
-func withLoader<T>(loader: ECLoader, _ operation: @escaping () async throws -> T) async rethrows -> T {
-    loader.show()
-    defer { loader.hide() }
+func withLoader<T>( _ operation: @escaping () async throws -> T) async rethrows -> T {
+    let loader = DIContainer.shared.container.resolve(ECLoader.self)
+    loader?.show()
+    defer { loader?.hide() }
     return try await operation()
 }

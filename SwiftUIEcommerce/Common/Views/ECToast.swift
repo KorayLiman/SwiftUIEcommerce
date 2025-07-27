@@ -15,7 +15,11 @@ struct ECToast: Equatable {
 
 struct ECToastView: View {
     let toast: ECToast
-    @Environment(ToastManager.self) var toastManager
+   
+    
+    private var toastManager: ToastManager{
+        DIContainer.shared.container.resolve(ToastManager.self)!
+    }
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {

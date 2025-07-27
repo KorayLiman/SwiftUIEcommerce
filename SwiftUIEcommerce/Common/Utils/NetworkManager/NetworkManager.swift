@@ -9,24 +9,29 @@ import Alamofire
 import SwiftUI
 
 final class NetworkManager {
-    init(baseURL: String, httpHeaders: HTTPHeaders? = nil, loader: ECLoader, authStore: AuthStore, userDefaultsManager: UserDefaultsManager) {
+    init(baseURL: String, httpHeaders: HTTPHeaders? = nil) {
         self.baseURL = baseURL
         self.httpHeaders = httpHeaders
-        self.loader = loader
-        self.authStore = authStore
-        self.userDefaultsManager = userDefaultsManager
     }
 
     let baseURL: String
     let httpHeaders: HTTPHeaders?
-    let loader: ECLoader
-    let authStore: AuthStore
-    let userDefaultsManager: UserDefaultsManager
+    var loader: ECLoader {
+        DIContainer.shared.container.resolve(ECLoader.self)!
+    }
+
+    var authRepository: IAuthRepository {
+        DIContainer.shared.container.resolve(IAuthRepository.self)!
+    }
+
+    var userDefaultsManager: IUserDefaultsManager {
+        DIContainer.shared.container.resolve(IUserDefaultsManager.self)!
+    }
 
     func request<T: Decodable>(_ type: T.Type = NullData.self, path: RequestPath, method: HTTPMethod = .get, parameters: Encodable? = nil, headers: HTTPHeaders? = nil) async -> BaseResponse<T> {
         let fullPath = baseURL + "/" + path.rawValue
         var mergedHeaders = HTTPHeaders()
-        if let accessToken = try? userDefaultsManager.getObject(LoginResponseModel.self, forKey: .loginResponseModel)?.accessToken {
+        if let accessToken = userDefaultsManager.getObject(LoginResponseModel.self, forKey: .loginResponseModel)?.accessToken {
             let authorizationHeader = HTTPHeader.authorization(bearerToken: accessToken)
             mergedHeaders.add(authorizationHeader)
         }
@@ -46,9 +51,8 @@ final class NetworkManager {
         urlRequest.headers = mergedHeaders
         urlRequest.timeoutInterval = 30
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         if let params = parameters {
-            
             if method == .get {
                 urlRequest = try! URLEncodedFormParameterEncoder.default.encode(params, into: urlRequest)
 
@@ -56,8 +60,6 @@ final class NetworkManager {
                 urlRequest.httpBody = try? JSONEncoder().encode(params)
             }
         }
-
-      
 
         let response = await AF.request(urlRequest)
             .validate()
@@ -68,7 +70,7 @@ final class NetworkManager {
             return BaseResponse(data: data.data, success: data.success, messages: data.messages, statusCode: data.statusCode, error: nil)
         case .failure(let error):
             if error.responseCode == 401 {
-                authStore.authState = .unAuthenticated
+                authRepository.authStateStream.send(.unAuthenticated)
             }
             var messages: [String]?
             if let data = response.data {

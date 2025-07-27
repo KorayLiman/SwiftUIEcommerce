@@ -10,6 +10,7 @@
 		DB8078692E2544CD00D1856C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB8078682E2544CD00D1856C /* Alamofire */; };
 		DBABB2472E336F8600E2DA80 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DBABB2462E336F8100E2DA80 /* README.md */; };
 		DBB4F38C2E242768004E7835 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DBB4F38B2E242768004E7835 /* Localizable.xcstrings */; };
+		DBD86F722E364353004DFFC5 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = DBD86F712E364353004DFFC5 /* Swinject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB8078692E2544CD00D1856C /* Alamofire in Frameworks */,
+				DBD86F722E364353004DFFC5 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = SwiftUIEcommerce;
 			packageProductDependencies = (
 				DB8078682E2544CD00D1856C /* Alamofire */,
+				DBD86F712E364353004DFFC5 /* Swinject */,
 			);
 			productName = SwiftUIEcommerce;
 			productReference = DB86E2402E1FF3FC00B1B12B /* SwiftUIEcommerce.app */;
@@ -116,6 +119,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				DB8078672E2544CD00D1856C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DBD86F702E364353004DFFC5 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DB86E2412E1FF3FC00B1B12B /* Products */;
@@ -363,6 +367,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		DBD86F702E364353004DFFC5 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -370,6 +382,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB8078672E2544CD00D1856C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		DBD86F712E364353004DFFC5 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBD86F702E364353004DFFC5 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

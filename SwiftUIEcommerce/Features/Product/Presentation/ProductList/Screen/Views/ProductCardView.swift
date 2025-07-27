@@ -27,7 +27,7 @@ struct ProductCardView: View {
                             ECText(label: String(format: "%.2f ₺", product.price ?? 0), foregroundColor: .ecBackground, font: .footnote)
                                 .fontWeight(.semibold)
                                 .padding(8)
-                                .background(.ecOnBackground)
+                                .background(.ecOnBackgroundVariant)
                                 .cornerRadius(12)
                         }
                         ECText(label: product.description ?? "", foregroundColor: .ecOnBackgroundVariant, font: .subheadline)

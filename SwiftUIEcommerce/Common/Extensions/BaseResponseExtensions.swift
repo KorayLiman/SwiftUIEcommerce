@@ -8,7 +8,8 @@
 import SwiftUI
 
 extension BaseResponse {
-    func showMessage(_ toastManager: ToastManager) -> Self {
+    func showMessage() -> Self {
+        let toastManager = DIContainer.shared.container.resolve(ToastManager.self)!
         if messages == nil {
             if error != nil {
                 toastManager.showToast(ECToast(style: .error, message: error!.localizedDescription))

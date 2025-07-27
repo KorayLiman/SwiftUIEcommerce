@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ECAsyncImage: View {
-    @Environment(\.networkManager) private var networkManager
     let id: Int
 
     @State private var image: Image? = nil
     @State private var isLoading = true
+    
+    private var networkManager: NetworkManager {
+        DIContainer.shared.container.resolve(NetworkManager.self)!
+    }
 
     var body: some View {
         Group {

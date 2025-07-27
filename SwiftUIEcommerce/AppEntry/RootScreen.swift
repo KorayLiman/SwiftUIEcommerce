@@ -11,36 +11,34 @@ import UIKit
 struct RootScreen: View {
     @State private var loader: ECLoader
     @State private var toastManager: ToastManager
-    @State private var authStore: AuthStore
+    @State private var authViewModel: AuthViewModel
     @State private var rootNavigator: Navigator
 
-    private var userDefaultsManager: UserDefaultsManager
+    private var userDefaultsManager: IUserDefaultsManager
     private var networkManager: NetworkManager
 
     init() {
-        let loader = ECLoader()
-        let authStore = AuthStore()
-        let toastManager = ToastManager()
-        let userDefaultsManager = UserDefaultsManager()
-        let rootNavigator = Navigator()
-        self.loader = loader
-        self.toastManager = toastManager
-        self.authStore = authStore
-        self.rootNavigator = rootNavigator
-        self.userDefaultsManager = userDefaultsManager
-        self.networkManager = NetworkManager(baseURL: AppConstants.baseUrl, loader: loader, authStore: authStore, userDefaultsManager: userDefaultsManager)
+        self.loader = DIContainer.shared.container.resolve(ECLoader.self) ?? ECLoader()
+        self.toastManager = DIContainer.shared.container.resolve(ToastManager.self) ?? ToastManager()
+        self.authViewModel = AuthViewModel()
+        self.rootNavigator = DIContainer.shared.container.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue) ?? Navigator()
+        self.userDefaultsManager = DIContainer.shared.container.resolve(IUserDefaultsManager.self) ?? UserDefaultsManager()
+        self.networkManager = DIContainer.shared.container.resolve(NetworkManager.self)!
     }
 
     var body: some View {
         NavigationStack(path: $rootNavigator.path) {
+         
+            
             ZStack {
-                switch authStore.authState {
+               
+                switch authViewModel.authState {
                 case .unknown:
-                    SplashScreen()
+                    SplashScreen().background(.ecBackgroundVariant)
                 case .authenticated:
-                    HomeScreen()
+                    HomeScreen().background(.ecBackgroundVariant)
                 case .unAuthenticated:
-                    LoginScreen()
+                    LoginScreen().background(.ecBackgroundVariant)
                 }
             }
             .navigationDestination(for: Route.self) { route in
@@ -50,13 +48,13 @@ struct RootScreen: View {
                 case .productDetail:
                     Text("productDetail")
                 case .forgotPassword:
-                    ForgotPasswordScreen()
+                    ForgotPasswordScreen().background(.ecBackgroundVariant)
                 case .resetPassword(let phoneCode, let phoneNumber):
-                    ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber)
+                    ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber).background(.ecBackgroundVariant)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .background(.ecBackgroundVariant)
+         
         }
 
         .overlay {
@@ -82,35 +80,9 @@ struct RootScreen: View {
                 .edgesIgnoringSafeArea(.all)
             }
         }
-
-        .environment(\.rootNavigator, rootNavigator)
-        .environment(authStore)
-        .environment(\.networkManager, networkManager)
-        .environment(loader)
-        .environment(toastManager)
-        .environment(\.userDefaultsManager, userDefaultsManager)
-        .onChange(of: authStore.authState) { oldValue, newValue in
-            if oldValue == newValue { return }
-            switch newValue {
-            case .authenticated(let loginResponseModel):
-                try? userDefaultsManager.setObject(loginResponseModel, forKey: .loginResponseModel)
-
-            case .unAuthenticated:
-                userDefaultsManager.removeObject(forKey: .loginResponseModel)
-
-            case .unknown:
-                break
-            }
-        }
     }
 }
 
 #Preview {
     RootScreen()
-        .environment(\.rootNavigator, Navigator())
-        .environment(AuthStore())
-        .environment(\.networkManager, NetworkManager(baseURL: "", loader: ECLoader(), authStore: AuthStore(), userDefaultsManager: UserDefaultsManager()))
-        .environment(ECLoader())
-        .environment(ToastManager())
-        .environment(\.userDefaultsManager, UserDefaultsManager())
 }
