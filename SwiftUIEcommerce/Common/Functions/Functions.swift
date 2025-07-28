@@ -6,7 +6,7 @@
 //
 
 func withLoader<T>( _ operation: @escaping () async throws -> T) async rethrows -> T {
-    let loader = DIContainer.shared.container.resolve(ECLoader.self)
+    let loader = DIContainer.shared.synchronizedResolver.resolve(ECLoader.self)
     loader?.show()
     defer { loader?.hide() }
     return try await operation()

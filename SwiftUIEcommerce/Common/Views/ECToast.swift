@@ -18,7 +18,7 @@ struct ECToastView: View {
    
     
     private var toastManager: ToastManager{
-        DIContainer.shared.container.resolve(ToastManager.self)!
+        DIContainer.shared.synchronizedResolver.resolve(ToastManager.self)!
     }
 
     var body: some View {

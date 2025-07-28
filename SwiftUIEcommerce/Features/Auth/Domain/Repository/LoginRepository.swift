@@ -6,8 +6,8 @@
 //
 
 protocol ILoginRepository {
-    func login(request: LoginRequestModel) async -> LoginResponseModel?
-    func register(request: RegisterRequestModel) async -> Bool
+    func login(request: LoginRequestModel) async -> BaseResponse<LoginResponseModel>
+    func register(request: RegisterRequestModel) async -> BaseResponse<UserModel>
 }
 
 final class LoginRepository: ILoginRepository {
@@ -16,15 +16,11 @@ final class LoginRepository: ILoginRepository {
     }
 
     private let loginRemoteDS: ILoginRemoteDS
-    func login(request: LoginRequestModel) async -> LoginResponseModel? {
-        await withLoader {
-            await self.loginRemoteDS.login(request: request).showMessage()
-        }.data
+    func login(request: LoginRequestModel) async -> BaseResponse<LoginResponseModel> {
+        await self.loginRemoteDS.login(request: request)
     }
 
-    func register(request: RegisterRequestModel) async -> Bool {
-        await withLoader {
-            await self.loginRemoteDS.register(request: request).showMessage()
-        }.isSuccess
+    func register(request: RegisterRequestModel) async -> BaseResponse<UserModel> {
+        await self.loginRemoteDS.register(request: request)
     }
 }

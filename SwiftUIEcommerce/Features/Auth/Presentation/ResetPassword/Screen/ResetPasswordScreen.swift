@@ -50,7 +50,9 @@ struct ResetPasswordScreen: View {
 
             ECFilledButton(localizedStringKey: "L.Confirm", maxWidth: .infinity, disabled: viewModel.otpCode == "" || viewModel.password == "" || viewModel.confirmPassword != viewModel.password) {
                 focusedField = nil
-                viewModel.resetPassword(phoneCode: phoneCode, phoneNumber: phoneNumber)
+                Task{
+                    await   viewModel.resetPassword(phoneCode: phoneCode, phoneNumber: phoneNumber)
+                }
             }
 
             Spacer()

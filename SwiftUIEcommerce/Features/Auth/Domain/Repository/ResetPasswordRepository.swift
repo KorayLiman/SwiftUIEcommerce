@@ -6,7 +6,7 @@
 //
 
 protocol IResetPasswordRepository {
-    func resetPassword(request: ResetPasswordRequestModel) async -> Bool
+    func resetPassword(request: ResetPasswordRequestModel) async -> BaseResponse<NullData>
 }
 
 final class ResetPasswordRepository: IResetPasswordRepository {
@@ -15,9 +15,7 @@ final class ResetPasswordRepository: IResetPasswordRepository {
     }
 
     private let resetPasswordRemoteDS: ResetPasswordRemoteDS
-    func resetPassword(request: ResetPasswordRequestModel) async -> Bool {
-        await withLoader {
-            await self.resetPasswordRemoteDS.resetPassword(request: request).showMessage()
-        }.isSuccess
+    func resetPassword(request: ResetPasswordRequestModel) async -> BaseResponse<NullData> {
+        await self.resetPasswordRemoteDS.resetPassword(request: request)
     }
 }

@@ -42,7 +42,9 @@ struct ForgotPasswordScreen: View {
 
             ECFilledButton(localizedStringKey: "L.Next", maxWidth: .infinity, disabled: viewModel.phoneNumber.isEmpty || viewModel.phoneCode.isEmpty) {
                 focusedField = nil
-                viewModel.sendOtp()
+                Task{
+                    await viewModel.sendOtp()
+                }
             }
 
             Spacer()

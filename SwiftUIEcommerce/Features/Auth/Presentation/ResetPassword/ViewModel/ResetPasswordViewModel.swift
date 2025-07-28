@@ -14,22 +14,24 @@ final class ResetPasswordViewModel {
     var confirmPassword: String = ""
 
     private var resetPasswordRepository: IResetPasswordRepository {
-        DIContainer.shared.container.resolve(IResetPasswordRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IResetPasswordRepository.self)!
     }
 
     private var rootNavigator: Navigator {
-        DIContainer.shared.container.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
+        DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
     }
 
-    func resetPassword(phoneCode: String, phoneNumber: String) {
+    func resetPassword(phoneCode: String, phoneNumber: String) async {
         let resetPasswordRequestModel = ResetPasswordRequestModel(phoneCode: phoneCode, phoneNumber: phoneNumber, code: otpCode, newPassword: password)
 
-        Task {
-            let isSuccess = await resetPasswordRepository.resetPassword(request: resetPasswordRequestModel)
+       
+            let response = await withLoader {
+                await self.resetPasswordRepository.resetPassword(request: resetPasswordRequestModel).showMessage()
+            }
 
-            if isSuccess {
+            if response.isSuccess {
                 rootNavigator.popToRoot()
             }
-        }
+        
     }
 }

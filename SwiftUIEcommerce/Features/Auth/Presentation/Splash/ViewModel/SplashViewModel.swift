@@ -10,11 +10,11 @@ import Observation
 @Observable
 final class SplashViewModel {
     private var userDefaultsManager: IUserDefaultsManager {
-        DIContainer.shared.container.resolve(IUserDefaultsManager.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self)!
     }
 
     private var authRepository: IAuthRepository {
-        DIContainer.shared.container.resolve(IAuthRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
     }
 
     func checkAuthenticationStatus() {

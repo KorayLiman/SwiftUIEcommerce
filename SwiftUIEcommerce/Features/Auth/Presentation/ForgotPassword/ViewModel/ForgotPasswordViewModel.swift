@@ -14,21 +14,23 @@ final class ForgotPasswordViewModel {
     var phoneNumber: String = ""
 
     private var forgotPasswordRepository: IForgotPasswordRepository {
-        DIContainer.shared.container.resolve(IForgotPasswordRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IForgotPasswordRepository.self)!
     }
 
     private var rootNavigator: Navigator {
-        DIContainer.shared.container.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
+        DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
     }
 
-    func sendOtp() {
-        Task {
+    func sendOtp() async{
+       
             let sendOtpCodeRequestModel = SendOtpCodeRequestModel(phoneCode: phoneCode, phoneNumber: phoneNumber)
-            let res = await forgotPasswordRepository.sendOtp(requestModel: sendOtpCodeRequestModel)
+            let res = await withLoader {
+                await self.forgotPasswordRepository.sendOtp(requestModel: sendOtpCodeRequestModel).showMessage()
+            }
 
-            if res == true {
+            if res.isSuccess {
                 rootNavigator.replaceCurrent(.resetPassword(phoneCode: phoneCode, phoneNumber: phoneNumber))
             }
-        }
+        
     }
 }

@@ -6,7 +6,7 @@
 //
 
 protocol IForgotPasswordRepository {
-    func sendOtp(requestModel: SendOtpCodeRequestModel) async -> Bool
+    func sendOtp(requestModel: SendOtpCodeRequestModel) async -> BaseResponse<NullData>
 }
 
 final class ForgotPasswordRepository: IForgotPasswordRepository {
@@ -16,10 +16,8 @@ final class ForgotPasswordRepository: IForgotPasswordRepository {
 
     private let forgotPasswordRemoteDS: IForgotPasswordRemoteDS
 
-    func sendOtp(requestModel: SendOtpCodeRequestModel) async -> Bool {
-        await withLoader {
-            await self.forgotPasswordRemoteDS.sendOtpCode(requestModel: requestModel).showMessage()
-        }
-        .isSuccess
+    func sendOtp(requestModel: SendOtpCodeRequestModel) async -> BaseResponse<NullData> {
+        await self.forgotPasswordRemoteDS.sendOtpCode(requestModel: requestModel)
+        
     }
 }

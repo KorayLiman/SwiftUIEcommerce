@@ -17,15 +17,15 @@ final class NetworkManager {
     let baseURL: String
     let httpHeaders: HTTPHeaders?
     var loader: ECLoader {
-        DIContainer.shared.container.resolve(ECLoader.self)!
+        DIContainer.shared.synchronizedResolver.resolve(ECLoader.self)!
     }
 
     var authRepository: IAuthRepository {
-        DIContainer.shared.container.resolve(IAuthRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
     }
 
     var userDefaultsManager: IUserDefaultsManager {
-        DIContainer.shared.container.resolve(IUserDefaultsManager.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self)!
     }
 
     func request<T: Decodable>(_ type: T.Type = NullData.self, path: RequestPath, method: HTTPMethod = .get, parameters: Encodable? = nil, headers: HTTPHeaders? = nil) async -> BaseResponse<T> {

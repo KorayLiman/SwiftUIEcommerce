@@ -91,7 +91,9 @@ private struct LoginTabView: View {
 
                 ECFilledButton(localizedStringKey: "L.Login", maxWidth: .infinity, disabled: viewModel.usernameLogin.isEmpty || viewModel.passwordLogin.isEmpty) {
                     focusedField = nil
-                    viewModel.login()
+                    Task {
+                        await viewModel.login()
+                    }
                 }
             }
         }
@@ -194,7 +196,9 @@ private struct RegisterTabView: View {
 
                 ECFilledButton(localizedStringKey: "L.Register", maxWidth: .infinity, disabled: viewModel.phoneCodeRegister.isEmpty || viewModel.phoneNumberRegister.isEmpty || viewModel.usernameRegister.isEmpty || viewModel.passwordRegister.isEmpty || viewModel.confirmPasswordRegister.isEmpty || viewModel.nameRegister.isEmpty || viewModel.surnameRegister.isEmpty || viewModel.emailRegister.isEmpty || !viewModel.isUserAgreementAcceptedRegister || !viewModel.isPrivacyPolicyAcceptedRegister) {
                     focusedField = nil
-                    viewModel.register()
+                    Task{
+                        await  viewModel.register()
+                    }
                 }
             }
         }

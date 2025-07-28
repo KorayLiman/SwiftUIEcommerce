@@ -18,12 +18,12 @@ struct RootScreen: View {
     private var networkManager: NetworkManager
 
     init() {
-        self.loader = DIContainer.shared.container.resolve(ECLoader.self) ?? ECLoader()
-        self.toastManager = DIContainer.shared.container.resolve(ToastManager.self) ?? ToastManager()
+        self.loader = DIContainer.shared.synchronizedResolver.resolve(ECLoader.self) ?? ECLoader()
+        self.toastManager = DIContainer.shared.synchronizedResolver.resolve(ToastManager.self) ?? ToastManager()
         self.authViewModel = AuthViewModel()
-        self.rootNavigator = DIContainer.shared.container.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue) ?? Navigator()
-        self.userDefaultsManager = DIContainer.shared.container.resolve(IUserDefaultsManager.self) ?? UserDefaultsManager()
-        self.networkManager = DIContainer.shared.container.resolve(NetworkManager.self)!
+        self.rootNavigator = DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue) ?? Navigator()
+        self.userDefaultsManager = DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self) ?? UserDefaultsManager()
+        self.networkManager = DIContainer.shared.synchronizedResolver.resolve(NetworkManager.self)!
     }
 
     var body: some View {

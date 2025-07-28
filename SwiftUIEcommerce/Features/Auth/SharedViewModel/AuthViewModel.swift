@@ -33,11 +33,11 @@ final class AuthViewModel {
     private(set) var authState: AuthState = .unknown
 
     private var userDefaultsManager: IUserDefaultsManager {
-        DIContainer.shared.container.resolve(IUserDefaultsManager.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self)!
     }
 
     private var authRepository: IAuthRepository {
-        DIContainer.shared.container.resolve(IAuthRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
     }
 
     func onLogin(_ loginResponse: LoginResponseModel) {

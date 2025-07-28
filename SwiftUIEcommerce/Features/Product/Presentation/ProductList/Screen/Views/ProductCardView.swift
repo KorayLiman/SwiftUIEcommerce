@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductCardView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(ProductListViewModel.self) var productListViewModel
     let product: ProductResponseModel
 
     var body: some View {
@@ -37,7 +38,11 @@ struct ProductCardView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            ECIconButton(iconName: "plus") {}
+                            ECIconButton(iconName: "plus") {
+                                Task {
+                                    await productListViewModel.addToCart(product: product)
+                                }
+                            }
                         }
                     }
                     .padding(16)

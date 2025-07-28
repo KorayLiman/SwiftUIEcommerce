@@ -14,7 +14,7 @@ struct ECAsyncImage: View {
     @State private var isLoading = true
     
     private var networkManager: NetworkManager {
-        DIContainer.shared.container.resolve(NetworkManager.self)!
+        DIContainer.shared.synchronizedResolver.resolve(NetworkManager.self)!
     }
 
     var body: some View {

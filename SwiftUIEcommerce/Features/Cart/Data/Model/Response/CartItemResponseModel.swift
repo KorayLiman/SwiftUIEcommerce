@@ -5,7 +5,7 @@
 //  Created by Koray Liman on 27.07.2025.
 //
 
-struct CartResponseModel: Codable {
+struct CartItemResponseModel: Codable {
     let id: String?
     let createdDate: String?
     let lastModifiedDate: String?

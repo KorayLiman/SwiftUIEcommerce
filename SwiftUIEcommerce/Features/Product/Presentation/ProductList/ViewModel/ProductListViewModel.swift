@@ -14,11 +14,15 @@ final class ProductListViewModel {
     var products: [ProductResponseModel] = []
 
     private var productListRepository: IProductListRepository {
-        DIContainer.shared.container.resolve(IProductListRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IProductListRepository.self)!
+    }
+
+    private var cartRepository: ICartRepository {
+        DIContainer.shared.synchronizedResolver.resolve(ICartRepository.self)!
     }
 
     func getProductCategories() async {
-        let categories = await productListRepository.getProductCategories()
+        let categories = await productListRepository.getProductCategories().showMessage().data
         var categoryList = [CategoryResponseModel.all()]
         if let categories = categories, !categories.isEmpty {
             categoryList.append(contentsOf: categories)
@@ -28,7 +32,7 @@ final class ProductListViewModel {
     }
 
     func getAllProducts() async {
-        let response = await productListRepository.getAllProducts()
+        let response = await productListRepository.getAllProducts().showMessage().data
         if let response = response {
             self.products = response
         }
@@ -39,11 +43,20 @@ final class ProductListViewModel {
             await self.getAllProducts()
         } else {
             if let id = category.id {
-                let products = await productListRepository.getProductsByCategoryId(id)
+                let products = await productListRepository.getProductsByCategoryId(id).showMessage().data
                 if let products = products {
                     self.products = products
                 }
             }
+        }
+    }
+
+    func addToCart(product: ProductResponseModel) async {
+        guard product.id != nil else { return }
+        let requestModel = AddToCartRequestModel(productId: product.id!)
+
+        let response = await withLoader {
+            await self.cartRepository.addToCart(requestModel).showMessage()
         }
     }
 }

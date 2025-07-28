@@ -27,36 +27,38 @@ final class LoginViewModel {
     var isPrivacyPolicyAcceptedRegister: Bool = false
 
     private var rootNavigator: Navigator {
-        DIContainer.shared.container.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
+        DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
     }
 
     private var toastManager: ToastManager {
-        DIContainer.shared.container.resolve(ToastManager.self)!
+        DIContainer.shared.synchronizedResolver.resolve(ToastManager.self)!
     }
 
     private var loginRepository: ILoginRepository {
-        DIContainer.shared.container.resolve(ILoginRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(ILoginRepository.self)!
     }
 
     private var authRepository: IAuthRepository {
-        DIContainer.shared.container.resolve(IAuthRepository.self)!
+        DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
     }
 
     func goToForgotPassword() {
-         rootNavigator.push(.forgotPassword)
+        rootNavigator.push(.forgotPassword)
     }
 
-    func login() {
-        Task {
+    func login() async{
+        
             let loginRequestModel = LoginRequestModel(username: usernameLogin, password: passwordLogin)
-            let response = await loginRepository.login(request: loginRequestModel)
-            if let data = response {
+            let response = await withLoader {
+                await self.loginRepository.login(request: loginRequestModel).showMessage()
+            }
+            if let data = response.data {
                 authRepository.authStateStream.send(.authenticated(data))
             }
-        }
+        
     }
 
-    func register() {
+    func register() async{
         var errorMessages: [String] = []
 
         if passwordRegister != confirmPasswordRegister {
@@ -72,7 +74,7 @@ final class LoginViewModel {
             return
         }
 
-        Task {
+      
             let registerRequestModel = RegisterRequestModel(
                 name: nameRegister,
                 surname: surnameRegister,
@@ -83,16 +85,20 @@ final class LoginViewModel {
                 password: passwordRegister
             )
 
-            let result = await loginRepository.register(request: registerRequestModel)
+            let result = await withLoader {
+                await self.loginRepository.register(request: registerRequestModel).showMessage()
+            }
 
-            if result {
+            if result.isSuccess {
                 let loginRequestModel = LoginRequestModel(username: usernameRegister, password: passwordRegister)
-                let loginResponseModel = await loginRepository.login(request: loginRequestModel)
+                let loginResponseModel = await withLoader {
+                    await self.loginRepository.login(request: loginRequestModel).showMessage()
+                }
 
-                if let response = loginResponseModel {
+                if let response = loginResponseModel.data {
                     authRepository.authStateStream.send(.authenticated(response))
                 }
             }
-        }
+        
     }
 }

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct HomeScreen: View {
     @State private var viewModel = HomeViewModel()
-   
-  
+
     var body: some View {
         @Bindable var viewModelBindable = viewModel
         TabView(selection: $viewModelBindable.selectedTab) {
@@ -21,20 +20,15 @@ struct HomeScreen: View {
             ECText(label: "Home2")
                 .tabItem {
                     Label("L.Profile", systemImage: "person.fill")
-               
                 }.tag(1)
             ECText(label: "Home3")
                 .tabItem {
                     Label("L.Cart", systemImage: "cart.fill")
-                  
                 }.tag(2).toolbarBackground(.ecBackgroundVariant, for: .tabBar)
         }
-   
         .navigationTitle(viewModel.getNavigationTitle())
-      
     }
 }
-
 
 #Preview {
     HomeScreen()

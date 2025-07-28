@@ -10,10 +10,12 @@ import Swinject
 final class DIContainer {
     static let shared = DIContainer()
     
-    let container: Container
+    private let container: Container
+    let synchronizedResolver: Resolver
     
     private init() {
         container = Container()
+        synchronizedResolver = container.synchronize()
         
         container.register(ToastManager.self) { _ in
             ToastManager()
@@ -49,6 +51,9 @@ final class DIContainer {
         }.inObjectScope(.container)
         container.register(IProductListRepository.self) { _ in
             ProductListRepository(productListRemoteDS: ProductListRemoteDS())
+        }.inObjectScope(.container)
+        container.register(ICartRepository.self) { _ in
+            CartRepository(cartRemoteDS: CartRemoteDS())
         }.inObjectScope(.container)
     }
 }

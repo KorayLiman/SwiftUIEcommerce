@@ -6,9 +6,9 @@
 //
 
 protocol IProductListRepository {
-    func getProductCategories() async -> [CategoryResponseModel]?
-    func getAllProducts() async -> [ProductResponseModel]?
-    func getProductsByCategoryId(_ categoryId: Int) async -> [ProductResponseModel]?
+    func getProductCategories() async -> BaseResponse<[CategoryResponseModel]>
+    func getAllProducts() async -> BaseResponse<[ProductResponseModel]>
+    func getProductsByCategoryId(_ categoryId: Int) async -> BaseResponse<[ProductResponseModel]>
 }
 
 final class ProductListRepository: IProductListRepository {
@@ -18,13 +18,15 @@ final class ProductListRepository: IProductListRepository {
         self.productListRemoteDS = productListRemoteDS
     }
 
-    func getProductCategories() async -> [CategoryResponseModel]? {
-         await productListRemoteDS.getProductCategories().showMessage().data
+    func getProductCategories() async -> BaseResponse<[CategoryResponseModel]> {
+        await productListRemoteDS.getProductCategories()
     }
-    func getAllProducts() async -> [ProductResponseModel]? {
-         await productListRemoteDS.getAllProducts().showMessage().data
+
+    func getAllProducts() async -> BaseResponse<[ProductResponseModel]> {
+        await productListRemoteDS.getAllProducts()
     }
-    func getProductsByCategoryId(_ categoryId: Int) async -> [ProductResponseModel]? {
-        await productListRemoteDS.getProductsByCategoryId(categoryId).showMessage().data
+
+    func getProductsByCategoryId(_ categoryId: Int) async -> BaseResponse<[ProductResponseModel]> {
+        await productListRemoteDS.getProductsByCategoryId(categoryId)
     }
 }
