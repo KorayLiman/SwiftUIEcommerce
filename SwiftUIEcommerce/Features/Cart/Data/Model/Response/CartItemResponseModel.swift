@@ -6,7 +6,7 @@
 //
 
 struct CartItemResponseModel: Codable {
-    let id: String?
+    let id: Int?
     let createdDate: String?
     let lastModifiedDate: String?
     let product: ProductResponseModel?

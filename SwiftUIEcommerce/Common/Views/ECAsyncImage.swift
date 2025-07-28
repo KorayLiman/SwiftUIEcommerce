@@ -30,7 +30,7 @@ struct ECAsyncImage: View {
                     .resizable()
             }
         }
-        .task {
+        .taskOnce {
             let response = await networkManager.request(FileModel.self, path: .file(id: id))
             if let base64ImageString = response.data?.data {
                 let data = Data(base64Encoded: base64ImageString)

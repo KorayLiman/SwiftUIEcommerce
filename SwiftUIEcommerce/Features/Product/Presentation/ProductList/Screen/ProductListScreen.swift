@@ -40,7 +40,7 @@ private struct CategoriesHStackView: View {
             .padding(.horizontal)
         }
         .frame(maxWidth: .infinity, maxHeight: 40)
-        .task {
+        .taskOnce {
             await viewModel.getProductCategories()
         }
     }
@@ -61,8 +61,10 @@ private struct ProductsListView: View {
                 }
             }
 
-        }.task {
-            await viewModel.getAllProducts()
+        }.taskOnce {
+            async let products: () = viewModel.getAllProducts()
+            async let cartItems: () = viewModel.getCartItems()
+            _ = await (products, cartItems)
         }
         .onChange(of: viewModel.selectedCategory) { oldValue, newValue in
             guard newValue != oldValue else { return }

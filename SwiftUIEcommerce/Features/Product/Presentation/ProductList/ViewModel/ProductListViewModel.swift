@@ -12,6 +12,7 @@ final class ProductListViewModel {
     var selectedCategory: CategoryResponseModel = .all()
     var categories: [CategoryResponseModel] = []
     var products: [ProductResponseModel] = []
+    private var cartItems: [CartItemResponseModel] = []
 
     private var productListRepository: IProductListRepository {
         DIContainer.shared.synchronizedResolver.resolve(IProductListRepository.self)!
@@ -19,6 +20,15 @@ final class ProductListViewModel {
 
     private var cartRepository: ICartRepository {
         DIContainer.shared.synchronizedResolver.resolve(ICartRepository.self)!
+    }
+
+    func getCartItems() async {
+        let data = await withLoader {
+            await self.cartRepository.getCartItems().showMessage()
+        }.data
+        if let data = data {
+            self.cartItems = data
+        }
     }
 
     func getProductCategories() async {
@@ -58,5 +68,9 @@ final class ProductListViewModel {
         let response = await withLoader {
             await self.cartRepository.addToCart(requestModel).showMessage()
         }
+    }
+
+    func getCartItemCount(product: ProductResponseModel) -> Int {
+        self.cartItems.filter { $0.product?.id == product.id }.count
     }
 }

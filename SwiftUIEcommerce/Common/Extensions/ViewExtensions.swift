@@ -7,4 +7,8 @@
 
 import SwiftUI
 
-extension View {}
+extension View {
+    func taskOnce(priority: TaskPriority = .userInitiated, _ action: @escaping @Sendable () async -> Void) -> some View {
+        modifier(TaskOnceModifier(priority: priority, action: action))
+    }
+}
