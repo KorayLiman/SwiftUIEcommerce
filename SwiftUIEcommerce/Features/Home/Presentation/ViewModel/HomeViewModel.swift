@@ -6,16 +6,36 @@
 //
 
 import Observation
+import Foundation
+import Combine
+
 
 @MainActor
 @Observable
 final class HomeViewModel {
     var selectedTab: Int = 0
     var cartItemsCount: Int = 0
+    
+    init() {
+        cartRepository.cartEventStream.receive(on: DispatchQueue.main).sink { [weak self] event in
+            guard let self = self else { return }
+            
+            switch event {
+            case .productAddedToCart(_):
+                cartItemsCount += 1
+                
+            case .productRemovedFromCart(_):
+                cartItemsCount -= 1
+            }
+        }
+        .store(in: &cancellables)
+    }
 
     private var cartRepository: ICartRepository {
         DIContainer.shared.synchronizedResolver.resolve(ICartRepository.self)!
     }
+    
+    private var cancellables = Set<AnyCancellable>()
 
     func getCartItemsTotalCount() async {
         let response = await withLoader {

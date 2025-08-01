@@ -7,13 +7,14 @@
 
 import Combine
 import Observation
+import Foundation
 
 @MainActor
 @Observable
 final class AuthViewModel {
     init() {
         
-        authRepository.authStateStream.sink { [weak self] state in
+        authRepository.authStateStream.receive(on: DispatchQueue.main).sink { [weak self] state in
             guard let self = self else { return }
 
             switch state {

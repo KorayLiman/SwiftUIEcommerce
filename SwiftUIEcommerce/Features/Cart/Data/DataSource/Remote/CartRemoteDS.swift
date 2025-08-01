@@ -21,6 +21,6 @@ final class CartRemoteDS: BaseRemoteDS, ICartRemoteDS {
     }
     
     func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData> {
-        await networkManager.request(NullData.self, path: .deleteCartItem(id: requestModel.productId), method: .delete)
+        await networkManager.request(NullData.self, path: .deleteCartItem(id: requestModel.cartItemId), method: .delete)
     }
 }

@@ -6,5 +6,5 @@
 //
 
 struct RemoveFromCartRequestModel: Encodable {
-    let productId: Int
+    let cartItemId: Int
 }

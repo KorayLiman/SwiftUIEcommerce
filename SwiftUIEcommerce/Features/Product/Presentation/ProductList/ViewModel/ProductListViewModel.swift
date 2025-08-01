@@ -24,7 +24,7 @@ final class ProductListViewModel {
 
     func getCartItems() async {
         let data = await withLoader {
-            await self.cartRepository.getCartItems().showMessage()
+            await self.cartRepository.getCartItems()
         }.data
         if let data = data {
             await MainActor.run {
@@ -34,7 +34,7 @@ final class ProductListViewModel {
     }
 
     func getProductCategories() async {
-        let categories = await productListRepository.getProductCategories().showMessage().data
+        let categories = await productListRepository.getProductCategories().data
 
         await MainActor.run {
             var categoryList = [CategoryResponseModel.all()]
@@ -46,7 +46,7 @@ final class ProductListViewModel {
     }
 
     func getAllProducts() async {
-        let response = await productListRepository.getAllProducts().showMessage().data
+        let response = await productListRepository.getAllProducts().data
         if let response = response {
             await MainActor.run {
                 self.products = response
@@ -59,7 +59,7 @@ final class ProductListViewModel {
             await self.getAllProducts()
         } else {
             if let id = category.id {
-                let products = await productListRepository.getProductsByCategoryId(id).showMessage().data
+                let products = await productListRepository.getProductsByCategoryId(id).data
                 if let products = products {
                     await MainActor.run {
                         self.products = products
@@ -74,7 +74,7 @@ final class ProductListViewModel {
         let requestModel = AddToCartRequestModel(productId: product.id!)
 
         let response = await withLoader {
-            await self.cartRepository.addToCart(requestModel).showMessage()
+            await self.cartRepository.addToCart(requestModel)
         }
         if let item = response.data {
             await MainActor.run {
@@ -87,10 +87,10 @@ final class ProductListViewModel {
         guard let productId = product.id else { return }
         guard let lastIndex = self.cartItems.lastIndex(where: { $0.product?.id == productId }) else { return }
 
-        let requestModel = RemoveFromCartRequestModel(productId: self.cartItems[lastIndex].id!)
+        let requestModel = RemoveFromCartRequestModel(cartItemId: self.cartItems[lastIndex].id!)
 
         let response = await withLoader {
-            await self.cartRepository.removeFromCart(requestModel).showMessage()
+            await self.cartRepository.removeFromCart(requestModel)
         }
 
         if response.isSuccess {
