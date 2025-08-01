@@ -7,8 +7,8 @@
 
 import Observation
 
+@MainActor
 @Observable
-
 final class ForgotPasswordViewModel {
     var phoneCode: String = "+90"
     var phoneNumber: String = ""

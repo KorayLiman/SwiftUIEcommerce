@@ -8,11 +8,13 @@
 import Observation
 import SwiftUI
 
+
 @Observable
 final class ToastManager {
     private(set) var activeToast: ECToast?
     @ObservationIgnored private var workItem: DispatchWorkItem?
 
+    @MainActor
     func showToast(_ toast: ECToast) {
         if activeToast != nil { return }
 
@@ -31,6 +33,7 @@ final class ToastManager {
         DispatchQueue.main.asyncAfter(deadline: .now() + activeToast!.duration, execute: workItem!)
     }
 
+    @MainActor
     func hideToast() {
         guard activeToast != nil else { return }
         activeToast = nil

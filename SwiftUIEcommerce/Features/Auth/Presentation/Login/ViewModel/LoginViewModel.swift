@@ -7,6 +7,7 @@
 
 import Observation
 
+@MainActor
 @Observable
 final class LoginViewModel {
     var selectedTab: Int = 0

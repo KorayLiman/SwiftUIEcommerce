@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension BaseResponse {
-    func showMessage() -> Self {
+    @MainActor func showMessage() -> Self {
         let toastManager = DIContainer.shared.synchronizedResolver.resolve(ToastManager.self)!
         if messages == nil {
             if error != nil {

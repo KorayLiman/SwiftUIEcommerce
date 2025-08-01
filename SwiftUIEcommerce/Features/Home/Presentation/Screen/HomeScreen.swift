@@ -24,9 +24,15 @@ struct HomeScreen: View {
             ECText(label: "Home3")
                 .tabItem {
                     Label("L.Cart", systemImage: "cart.fill")
-                }.tag(2).toolbarBackground(.ecBackgroundVariant, for: .tabBar)
+                }.tag(2)
+                .badge(viewModel.cartItemsCount)
+                .toolbarBackground(.ecBackgroundVariant, for: .tabBar)
         }
+        
         .navigationTitle(viewModel.getNavigationTitle())
+        .taskOnce {
+          await  viewModel.getCartItemsTotalCount()
+        }
     }
 }
 

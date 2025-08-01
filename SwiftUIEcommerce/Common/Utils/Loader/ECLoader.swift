@@ -13,7 +13,7 @@ final class ECLoader {
     @ObservationIgnored private var activeLoaderRequestCount: Int = 0
 
     private(set) var isLoaderActive = false
-
+    @MainActor
     func show() {
         if activeLoaderRequestCount == 0 {
             withAnimation(.linear(duration: 0.15)) {
@@ -24,6 +24,7 @@ final class ECLoader {
         activeLoaderRequestCount += 1
     }
 
+    @MainActor
     func hide() {
         if activeLoaderRequestCount > 0 {
             if activeLoaderRequestCount == 1 {

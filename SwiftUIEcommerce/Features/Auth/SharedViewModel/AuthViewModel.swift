@@ -8,6 +8,7 @@
 import Combine
 import Observation
 
+@MainActor
 @Observable
 final class AuthViewModel {
     init() {

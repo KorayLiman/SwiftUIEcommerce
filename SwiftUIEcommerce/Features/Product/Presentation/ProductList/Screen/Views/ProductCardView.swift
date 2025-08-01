@@ -38,10 +38,14 @@ struct ProductCardView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            ECIconButton(iconName: "plus") {
+                            if productListViewModel.getCartItemCount(product: product) == 0 { ECIconButton(iconName: "plus") {
                                 Task {
                                     await productListViewModel.addToCart(product: product)
                                 }
+                            }
+                            }
+                            else {
+                                PlusMinusBotton(product: product)
                             }
                         }
                     }
@@ -54,4 +58,31 @@ struct ProductCardView: View {
             .shadow(color: .ecOnBackground.opacity(0.3), radius: 2, x: 0, y: 1)
         }
     }
+}
+
+private struct PlusMinusBotton: View {
+    @Environment(ProductListViewModel.self) var productListViewModel
+    var product: ProductResponseModel
+    var body: some View {
+        HStack(spacing: 0) {
+            let iconName = productListViewModel.getCartItemCount(product: product) == 1 ? "trash" : "minus"
+            ECIconButton(iconName: iconName, size: 16) {
+                Task{
+                    await productListViewModel.removeFromCart(product: product)
+                }
+            }
+            ECText(label: String(productListViewModel.getCartItemCount(product: product)), foregroundColor: .ecOnBackground, font: .headline)
+                .padding(.horizontal, 12)
+            ECIconButton(iconName: "plus", size: 16) {
+                Task{
+                    await productListViewModel.addToCart(product: product)
+                }
+            }
+        }
+        .background(Capsule().fill(Color.ecBackgroundVariant2))
+    }
+}
+
+#Preview {
+    PlusMinusBotton(product: ProductResponseModel(id: 1, createdDate: "2025-07-23", lastModifiedDate: "2025-07-23", name: "Sample Product", description: "This is a sample product description.", price: 99.99, imageFile: nil, category: nil))
 }

@@ -6,7 +6,8 @@
 //
 
 protocol ICartRepository {
-    func addToCart(_ request: AddToCartRequestModel) async -> BaseResponse<NullData>
+    func addToCart(_ request: AddToCartRequestModel) async -> BaseResponse<CartItemResponseModel>
+    func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData>
     func getCartItems() async -> BaseResponse<[CartItemResponseModel]>
 }
 
@@ -17,11 +18,14 @@ final class CartRepository: ICartRepository {
 
     private let cartRemoteDS: ICartRemoteDS
 
-    func addToCart(_ request: AddToCartRequestModel) async -> BaseResponse<NullData> {
+    func addToCart(_ request: AddToCartRequestModel) async -> BaseResponse<CartItemResponseModel> {
         await self.cartRemoteDS.addToCart(request)
     }
 
     func getCartItems() async -> BaseResponse<[CartItemResponseModel]> {
         await self.cartRemoteDS.getCartItems()
+    }
+    func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData> {
+        await self.cartRemoteDS.removeFromCart(requestModel)
     }
 }

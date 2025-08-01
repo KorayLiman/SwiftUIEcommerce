@@ -5,6 +5,7 @@
 //  Created by Koray Liman on 23.07.2025.
 //
 
+@MainActor
 func withLoader<T>( _ operation: @escaping () async throws -> T) async rethrows -> T {
     let loader = DIContainer.shared.synchronizedResolver.resolve(ECLoader.self)
     loader?.show()
