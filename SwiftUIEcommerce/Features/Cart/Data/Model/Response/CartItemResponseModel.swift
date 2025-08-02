@@ -10,4 +10,11 @@ struct CartItemResponseModel: Codable {
     let createdDate: String?
     let lastModifiedDate: String?
     let product: ProductResponseModel?
+
+    init(id: Int? = nil, createdDate: String? = nil, lastModifiedDate: String? = nil, product: ProductResponseModel? = nil) {
+        self.id = id
+        self.createdDate = createdDate
+        self.lastModifiedDate = lastModifiedDate
+        self.product = product
+    }
 }

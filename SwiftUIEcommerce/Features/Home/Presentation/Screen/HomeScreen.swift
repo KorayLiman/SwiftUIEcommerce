@@ -9,29 +9,54 @@ import SwiftUI
 
 struct HomeScreen: View {
     @State private var viewModel = HomeViewModel()
+    @State private var rootNavigator: Navigator
+
+    init() {
+        self.rootNavigator = DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
+    }
 
     var body: some View {
         @Bindable var viewModelBindable = viewModel
         TabView(selection: $viewModelBindable.selectedTab) {
-            ProductListScreen()
-                .tabItem {
-                    Label("L.Products", systemImage: "house.fill")
-                }.tag(0)
-            ECText(label: "Home2")
-                .tabItem {
-                    Label("L.Profile", systemImage: "person.fill")
-                }.tag(1)
-            ECText(label: "Home3")
-                .tabItem {
-                    Label("L.Cart", systemImage: "cart.fill")
-                }.tag(2)
-                .badge(viewModel.cartItemsCount)
-                .toolbarBackground(.ecBackgroundVariant, for: .tabBar)
+            NavigationStack {
+                ProductListScreen()
+                    .toolbarBackground(.ecBackgroundVariant, for: .tabBar)
+                   
+            }
+
+            .tabItem {
+                Label("L.Products", systemImage: "house.fill")
+            }.tag(0)
+
+            NavigationStack {
+                ECText(label: "Home2")
+                    .toolbarBackground(.red, for: .tabBar)
+                    .toolbarBackground(.visible, for: .tabBar)
+            }
+            .tabItem {
+                Label("L.Profile", systemImage: "person.fill")
+            }.tag(1)
+
+            NavigationStack(path: $rootNavigator.cartPath) {
+                CartScreen()
+                    .navigationDestination(for: CartRoute.self) { route in
+                        switch route {
+                        case .placeOrder:
+                            PlaceOrderScreen()
+                        }
+                    }
+                    .toolbarBackground(.ecBackgroundVariant, for: .tabBar)
+                    .toolbarBackground(.visible, for: .tabBar)
+            }
+
+            .tabItem {
+                Label("L.Cart", systemImage: "cart.fill")
+            }.tag(2)
+            .badge(viewModel.cartItemsCount)
         }
-        
-        .navigationTitle(viewModel.getNavigationTitle())
+
         .taskOnce {
-          await  viewModel.getCartItemsTotalCount()
+            await viewModel.getCartItemsTotalCount()
         }
     }
 }

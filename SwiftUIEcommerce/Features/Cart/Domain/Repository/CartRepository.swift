@@ -11,13 +11,13 @@ protocol ICartRepository {
     func addToCart(_ request: AddToCartRequestModel) async -> BaseResponse<CartItemResponseModel>
     func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData>
     func getCartItems() async -> BaseResponse<[CartItemResponseModel]>
+    func deleteAllCartItems() async -> BaseResponse<NullData>
     var cartEventStream: PassthroughSubject<CartEvent, Never> { get }
 }
 
 final class CartRepository: ICartRepository {
-    
     let cartEventStream = PassthroughSubject<CartEvent, Never>()
-    
+
     init(cartRemoteDS: ICartRemoteDS) {
         self.cartRemoteDS = cartRemoteDS
     }
@@ -25,7 +25,7 @@ final class CartRepository: ICartRepository {
     private let cartRemoteDS: ICartRemoteDS
 
     func addToCart(_ request: AddToCartRequestModel) async -> BaseResponse<CartItemResponseModel> {
-     let result =    await self.cartRemoteDS.addToCart(request)
+        let result = await self.cartRemoteDS.addToCart(request)
         if let cartItem = result.data {
             self.cartEventStream.send(.productAddedToCart(cartItem))
         }
@@ -37,16 +37,24 @@ final class CartRepository: ICartRepository {
     }
 
     func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData> {
-       let result = await self.cartRemoteDS.removeFromCart(requestModel)
-        if result.isSuccess{
+        let result = await self.cartRemoteDS.removeFromCart(requestModel)
+        if result.isSuccess {
             self.cartEventStream.send(.productRemovedFromCart(requestModel.cartItemId))
+        }
+        return result
+    }
+
+    func deleteAllCartItems() async -> BaseResponse<NullData> {
+        let result = await self.cartRemoteDS.deleteAllCartItems()
+        if result.isSuccess {
+            self.cartEventStream.send(.allCartItemsDeleted)
         }
         return result
     }
 }
 
-enum CartEvent{
+enum CartEvent {
     case productAddedToCart(CartItemResponseModel)
     case productRemovedFromCart(Int)
+    case allCartItemsDeleted
 }
-

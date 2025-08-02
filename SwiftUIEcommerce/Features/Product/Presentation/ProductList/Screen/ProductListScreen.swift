@@ -15,6 +15,8 @@ struct ProductListScreen: View {
             CategoriesHStackView()
             ProductsListView()
         }
+        .navigationTitle("L.Products")
+        .navigationBarTitleDisplayMode(.inline)
         .background(.ecBackgroundVariant)
         .environment(viewModel)
     }

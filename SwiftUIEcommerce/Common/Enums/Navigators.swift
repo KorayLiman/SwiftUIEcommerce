@@ -7,4 +7,7 @@
 
 enum Navigators: String {
     case rootNavigator = "RootNavigator"
+    case productsNavigator = "ProductsNavigator"
+    case profileNavigator = "ProfileNavigator"
+    case cartNavigator = "CartNavigator"
 }

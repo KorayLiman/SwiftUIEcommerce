@@ -12,9 +12,12 @@ import Foundation
 @MainActor
 @Observable
 final class AuthViewModel {
-    init() {
+    init(authRepository: IAuthRepository? = nil, userDefaultsManager: IUserDefaultsManager? = nil) {
         
-        authRepository.authStateStream.receive(on: DispatchQueue.main).sink { [weak self] state in
+        self.authRepository = authRepository ?? DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
+        self.userDefaultsManager = userDefaultsManager ?? DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self)!
+        
+        self.authRepository.authStateStream.receive(on: DispatchQueue.main).sink { [weak self] state in
             guard let self = self else { return }
 
             switch state {
@@ -33,14 +36,11 @@ final class AuthViewModel {
 
     private var cancellables = Set<AnyCancellable>()
     private(set) var authState: AuthState = .unknown
+    
+    private let userDefaultsManager: IUserDefaultsManager
 
-    private var userDefaultsManager: IUserDefaultsManager {
-        DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self)!
-    }
+    private let authRepository: IAuthRepository
 
-    private var authRepository: IAuthRepository {
-        DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
-    }
 
     func onLogin(_ loginResponse: LoginResponseModel) {
         let result = userDefaultsManager.setObject(loginResponse, forKey: .loginResponseModel)

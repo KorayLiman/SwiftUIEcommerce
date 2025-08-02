@@ -27,35 +27,35 @@ struct RootScreen: View {
     }
 
     var body: some View {
-        NavigationStack(path: $rootNavigator.path) {
-         
-            
-            ZStack {
-               
-                switch authViewModel.authState {
-                case .unknown:
-                    SplashScreen().background(.ecBackgroundVariant)
-                case .authenticated:
-                    HomeScreen().background(.ecBackgroundVariant)
-                case .unAuthenticated:
+        ZStack {
+            switch authViewModel.authState {
+            case .unknown:
+                SplashScreen().background(.ecBackgroundVariant)
+
+            case .authenticated:
+                HomeScreen().background(.ecBackgroundVariant)
+
+            case .unAuthenticated:
+                NavigationStack(path: $rootNavigator.path) {
                     LoginScreen().background(.ecBackgroundVariant)
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .productList:
+                            Text("productList")
+                        case .productDetail:
+                            Text("productDetail")
+                        case .forgotPassword:
+                            ForgotPasswordScreen().background(.ecBackgroundVariant)
+                        case .resetPassword(let phoneCode, let phoneNumber):
+                            ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber).background(.ecBackgroundVariant)
+                        }
+                    }
+                    .navigationBarTitleDisplayMode(.inline)
                 }
+             
             }
-            .navigationDestination(for: Route.self) { route in
-                switch route {
-                case .productList:
-                    Text("productList")
-                case .productDetail:
-                    Text("productDetail")
-                case .forgotPassword:
-                    ForgotPasswordScreen().background(.ecBackgroundVariant)
-                case .resetPassword(let phoneCode, let phoneNumber):
-                    ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber).background(.ecBackgroundVariant)
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-         
         }
+     
 
         .overlay {
             if let toast = toastManager.getActiveToast {

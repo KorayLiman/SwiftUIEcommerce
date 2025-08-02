@@ -5,22 +5,46 @@
 //  Created by Koray Liman on 23.07.2025.
 //
 
+import Combine
 import Observation
+import Foundation
 
 @Observable
 final class ProductListViewModel {
+    init(productListRepository: IProductListRepository? = nil, cartRepository: ICartRepository? = nil) {
+        self.productListRepository = productListRepository ?? DIContainer.shared.synchronizedResolver.resolve(IProductListRepository.self)!
+        self.cartRepository = cartRepository ?? DIContainer.shared.synchronizedResolver.resolve(ICartRepository.self)!
+
+        self.cartRepository.cartEventStream.receive(on: DispatchQueue.main).sink { [weak self] event in
+
+            guard let self = self else { return }
+
+            switch event {
+            case .productAddedToCart(_):
+                Task {
+                    await self.getCartItems()
+                }
+
+            case .productRemovedFromCart(_):
+                Task {
+                    await self.getCartItems()
+                }
+            case .allCartItemsDeleted:
+                 removeAllCartItems()
+            }
+        }
+        .store(in: &self.cancellables)
+    }
+
+    private var cancellables = Set<AnyCancellable>()
     var selectedCategory: CategoryResponseModel = .all()
     var categories: [CategoryResponseModel] = []
     var products: [ProductResponseModel] = []
     private var cartItems: [CartItemResponseModel] = []
 
-    private var productListRepository: IProductListRepository {
-        DIContainer.shared.synchronizedResolver.resolve(IProductListRepository.self)!
-    }
+    private let productListRepository: IProductListRepository
 
-    private var cartRepository: ICartRepository {
-        DIContainer.shared.synchronizedResolver.resolve(ICartRepository.self)!
-    }
+    private let cartRepository: ICartRepository
 
     func getCartItems() async {
         let data = await withLoader {
@@ -31,6 +55,10 @@ final class ProductListViewModel {
                 self.cartItems = data
             }
         }
+    }
+    
+    private func removeAllCartItems()  {
+         cartItems.removeAll()
     }
 
     func getProductCategories() async {
@@ -73,14 +101,10 @@ final class ProductListViewModel {
         guard product.id != nil else { return }
         let requestModel = AddToCartRequestModel(productId: product.id!)
 
-        let response = await withLoader {
+        _ = await withLoader {
             await self.cartRepository.addToCart(requestModel)
         }
-        if let item = response.data {
-            await MainActor.run {
-                self.cartItems.append(item)
-            }
-        }
+       
     }
 
     func removeFromCart(product: ProductResponseModel) async {
@@ -89,15 +113,11 @@ final class ProductListViewModel {
 
         let requestModel = RemoveFromCartRequestModel(cartItemId: self.cartItems[lastIndex].id!)
 
-        let response = await withLoader {
+        _ = await withLoader {
             await self.cartRepository.removeFromCart(requestModel)
         }
 
-        if response.isSuccess {
-            _ = await MainActor.run {
-                self.cartItems.remove(at: lastIndex)
-            }
-        }
+       
     }
 
     func getCartItemCount(product: ProductResponseModel) -> Int {

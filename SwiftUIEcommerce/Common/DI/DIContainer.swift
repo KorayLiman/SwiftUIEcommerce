@@ -26,6 +26,7 @@ final class DIContainer {
         container.register(Navigator.self, name: Navigators.rootNavigator.rawValue) { _ in
             Navigator()
         }.inObjectScope(.container)
+     
         container.register(IUserDefaultsManager.self) { _ in
             UserDefaultsManager()
         }.inObjectScope(.container)

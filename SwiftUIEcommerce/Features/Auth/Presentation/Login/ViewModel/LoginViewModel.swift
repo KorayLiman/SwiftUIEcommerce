@@ -27,39 +27,42 @@ final class LoginViewModel {
     var isUserAgreementAcceptedRegister: Bool = false
     var isPrivacyPolicyAcceptedRegister: Bool = false
 
-    private var rootNavigator: Navigator {
-        DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
+    init(rootNavigator: Navigator? = nil,
+         toastManager: ToastManager? = nil,
+         loginRepository: ILoginRepository? = nil,
+         authRepository: IAuthRepository? = nil)
+    {
+        self.rootNavigator = rootNavigator ?? DIContainer.shared.synchronizedResolver.resolve(Navigator.self,
+                                                                                              name: Navigators.rootNavigator.rawValue)!
+        self.toastManager = toastManager ?? DIContainer.shared.synchronizedResolver.resolve(ToastManager.self)!
+        self.loginRepository = loginRepository ?? DIContainer.shared.synchronizedResolver.resolve(ILoginRepository
+            .self)!
+        self.authRepository = authRepository ?? DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
     }
 
-    private var toastManager: ToastManager {
-        DIContainer.shared.synchronizedResolver.resolve(ToastManager.self)!
-    }
+    private let rootNavigator: Navigator
 
-    private var loginRepository: ILoginRepository {
-        DIContainer.shared.synchronizedResolver.resolve(ILoginRepository.self)!
-    }
+    private let toastManager: ToastManager
 
-    private var authRepository: IAuthRepository {
-        DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
-    }
+    private let loginRepository: ILoginRepository
+
+    private let authRepository: IAuthRepository
 
     func goToForgotPassword() {
         rootNavigator.push(.forgotPassword)
     }
 
-    func login() async{
-        
-            let loginRequestModel = LoginRequestModel(username: usernameLogin, password: passwordLogin)
-            let response = await withLoader {
-                await self.loginRepository.login(request: loginRequestModel).showMessage()
-            }
-            if let data = response.data {
-                authRepository.authStateStream.send(.authenticated(data))
-            }
-        
+    func login() async {
+        let loginRequestModel = LoginRequestModel(username: usernameLogin, password: passwordLogin)
+        let response = await withLoader {
+            await self.loginRepository.login(request: loginRequestModel).showMessage()
+        }
+        if let data = response.data {
+            authRepository.authStateStream.send(.authenticated(data))
+        }
     }
 
-    func register() async{
+    func register() async {
         var errorMessages: [String] = []
 
         if passwordRegister != confirmPasswordRegister {
@@ -75,31 +78,29 @@ final class LoginViewModel {
             return
         }
 
-      
-            let registerRequestModel = RegisterRequestModel(
-                name: nameRegister,
-                surname: surnameRegister,
-                email: emailRegister,
-                phoneCode: phoneCodeRegister,
-                phoneNumber: phoneNumberRegister,
-                username: usernameRegister,
-                password: passwordRegister
-            )
+        let registerRequestModel = RegisterRequestModel(
+            name: nameRegister,
+            surname: surnameRegister,
+            email: emailRegister,
+            phoneCode: phoneCodeRegister,
+            phoneNumber: phoneNumberRegister,
+            username: usernameRegister,
+            password: passwordRegister
+        )
 
-            let result = await withLoader {
-                await self.loginRepository.register(request: registerRequestModel).showMessage()
+        let result = await withLoader {
+            await self.loginRepository.register(request: registerRequestModel).showMessage()
+        }
+
+        if result.isSuccess {
+            let loginRequestModel = LoginRequestModel(username: usernameRegister, password: passwordRegister)
+            let loginResponseModel = await withLoader {
+                await self.loginRepository.login(request: loginRequestModel).showMessage()
             }
 
-            if result.isSuccess {
-                let loginRequestModel = LoginRequestModel(username: usernameRegister, password: passwordRegister)
-                let loginResponseModel = await withLoader {
-                    await self.loginRepository.login(request: loginRequestModel).showMessage()
-                }
-
-                if let response = loginResponseModel.data {
-                    authRepository.authStateStream.send(.authenticated(response))
-                }
+            if let response = loginResponseModel.data {
+                authRepository.authStateStream.send(.authenticated(response))
             }
-        
+        }
     }
 }

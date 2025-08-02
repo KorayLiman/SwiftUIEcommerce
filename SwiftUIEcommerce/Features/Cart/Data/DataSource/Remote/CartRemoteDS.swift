@@ -9,6 +9,7 @@ protocol ICartRemoteDS {
     func addToCart(_ requestModel: AddToCartRequestModel) async -> BaseResponse<CartItemResponseModel>
     func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData>
     func getCartItems() async -> BaseResponse<[CartItemResponseModel]>
+    func deleteAllCartItems() async -> BaseResponse<NullData>
 }
 
 final class CartRemoteDS: BaseRemoteDS, ICartRemoteDS {
@@ -22,5 +23,9 @@ final class CartRemoteDS: BaseRemoteDS, ICartRemoteDS {
     
     func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData> {
         await networkManager.request(NullData.self, path: .deleteCartItem(id: requestModel.cartItemId), method: .delete)
+    }
+    
+    func deleteAllCartItems() async -> BaseResponse<NullData> {
+        await networkManager.request(NullData.self, path: .deleteAll, method: .delete)
     }
 }

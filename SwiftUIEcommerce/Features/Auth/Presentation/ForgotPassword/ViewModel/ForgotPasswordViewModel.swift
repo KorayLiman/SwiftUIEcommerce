@@ -13,24 +13,23 @@ final class ForgotPasswordViewModel {
     var phoneCode: String = "+90"
     var phoneNumber: String = ""
 
-    private var forgotPasswordRepository: IForgotPasswordRepository {
-        DIContainer.shared.synchronizedResolver.resolve(IForgotPasswordRepository.self)!
+    init(forgotPasswordRepository: IForgotPasswordRepository? = nil, rootNavigator: Navigator? = nil) {
+        self.forgotPasswordRepository = forgotPasswordRepository ?? DIContainer.shared.synchronizedResolver.resolve(IForgotPasswordRepository.self)!
+        self.rootNavigator = rootNavigator ?? DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
     }
 
-    private var rootNavigator: Navigator {
-        DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
-    }
+    private let forgotPasswordRepository: IForgotPasswordRepository
 
-    func sendOtp() async{
-       
-            let sendOtpCodeRequestModel = SendOtpCodeRequestModel(phoneCode: phoneCode, phoneNumber: phoneNumber)
-            let res = await withLoader {
-                await self.forgotPasswordRepository.sendOtp(requestModel: sendOtpCodeRequestModel).showMessage()
-            }
+    private let rootNavigator: Navigator
 
-            if res.isSuccess {
-                rootNavigator.replaceCurrent(.resetPassword(phoneCode: phoneCode, phoneNumber: phoneNumber))
-            }
-        
+    func sendOtp() async {
+        let sendOtpCodeRequestModel = SendOtpCodeRequestModel(phoneCode: phoneCode, phoneNumber: phoneNumber)
+        let res = await withLoader {
+            await self.forgotPasswordRepository.sendOtp(requestModel: sendOtpCodeRequestModel).showMessage()
+        }
+
+        if res.isSuccess {
+            rootNavigator.replaceCurrent(.resetPassword(phoneCode: phoneCode, phoneNumber: phoneNumber))
+        }
     }
 }

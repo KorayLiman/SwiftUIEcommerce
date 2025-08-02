@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB147E132E3E2FE6006F0FC5 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E122E3E2FE6006F0FC5 /* BitCollections */; };
+		DB147E152E3E2FE6006F0FC5 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E142E3E2FE6006F0FC5 /* Collections */; };
+		DB147E172E3E2FE6006F0FC5 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E162E3E2FE6006F0FC5 /* DequeModule */; };
+		DB147E192E3E2FE6006F0FC5 /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E182E3E2FE6006F0FC5 /* HashTreeCollections */; };
+		DB147E1B2E3E2FE6006F0FC5 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E1A2E3E2FE6006F0FC5 /* HeapModule */; };
 		DB8078692E2544CD00D1856C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB8078682E2544CD00D1856C /* Alamofire */; };
 		DBABB2472E336F8600E2DA80 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DBABB2462E336F8100E2DA80 /* README.md */; };
 		DBB4F38C2E242768004E7835 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DBB4F38B2E242768004E7835 /* Localizable.xcstrings */; };
@@ -37,8 +42,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB147E192E3E2FE6006F0FC5 /* HashTreeCollections in Frameworks */,
 				DB8078692E2544CD00D1856C /* Alamofire in Frameworks */,
 				DBD86F722E364353004DFFC5 /* Swinject in Frameworks */,
+				DB147E1B2E3E2FE6006F0FC5 /* HeapModule in Frameworks */,
+				DB147E172E3E2FE6006F0FC5 /* DequeModule in Frameworks */,
+				DB147E152E3E2FE6006F0FC5 /* Collections in Frameworks */,
+				DB147E132E3E2FE6006F0FC5 /* BitCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +97,11 @@
 			packageProductDependencies = (
 				DB8078682E2544CD00D1856C /* Alamofire */,
 				DBD86F712E364353004DFFC5 /* Swinject */,
+				DB147E122E3E2FE6006F0FC5 /* BitCollections */,
+				DB147E142E3E2FE6006F0FC5 /* Collections */,
+				DB147E162E3E2FE6006F0FC5 /* DequeModule */,
+				DB147E182E3E2FE6006F0FC5 /* HashTreeCollections */,
+				DB147E1A2E3E2FE6006F0FC5 /* HeapModule */,
 			);
 			productName = SwiftUIEcommerce;
 			productReference = DB86E2402E1FF3FC00B1B12B /* SwiftUIEcommerce.app */;
@@ -120,6 +135,7 @@
 			packageReferences = (
 				DB8078672E2544CD00D1856C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				DBD86F702E364353004DFFC5 /* XCRemoteSwiftPackageReference "Swinject" */,
+				DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DB86E2412E1FF3FC00B1B12B /* Products */;
@@ -359,6 +375,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections?ref=advancedswift.com";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 		DB8078672E2544CD00D1856C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -378,6 +402,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DB147E122E3E2FE6006F0FC5 /* BitCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = BitCollections;
+		};
+		DB147E142E3E2FE6006F0FC5 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		DB147E162E3E2FE6006F0FC5 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		DB147E182E3E2FE6006F0FC5 /* HashTreeCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HashTreeCollections;
+		};
+		DB147E1A2E3E2FE6006F0FC5 /* HeapModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HeapModule;
+		};
 		DB8078682E2544CD00D1856C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB8078672E2544CD00D1856C /* XCRemoteSwiftPackageReference "Alamofire" */;

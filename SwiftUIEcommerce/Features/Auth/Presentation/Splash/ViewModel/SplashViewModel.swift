@@ -10,14 +10,17 @@ import Observation
 @MainActor
 @Observable
 final class SplashViewModel {
-    private var userDefaultsManager: IUserDefaultsManager {
-        DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self)!
+    init(userDefaultsManager: IUserDefaultsManager? = nil,
+         authRepository: IAuthRepository? = nil)
+    {
+        self.userDefaultsManager = userDefaultsManager ?? DIContainer.shared.synchronizedResolver.resolve(IUserDefaultsManager.self)!
+        self.authRepository = authRepository ?? DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
     }
+    
+    private let userDefaultsManager: IUserDefaultsManager
 
-    private var authRepository: IAuthRepository {
-        DIContainer.shared.synchronizedResolver.resolve(IAuthRepository.self)!
-    }
-
+    private let authRepository: IAuthRepository
+    
     func checkAuthenticationStatus() {
         if let loginResponseModel = userDefaultsManager.getObject(LoginResponseModel.self, forKey: .loginResponseModel) {
             authRepository.authStateStream.send(.authenticated(loginResponseModel))

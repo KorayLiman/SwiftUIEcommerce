@@ -118,6 +118,39 @@
         }
       }
     },
+    "L.Continue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Devam Et"
+          }
+        }
+      }
+    },
+    "L.DeleteAll" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete All"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümünü Sil"
+          }
+        }
+      }
+    },
     "L.Email" : {
       "localizations" : {
         "en" : {
@@ -265,6 +298,22 @@
         }
       }
     },
+    "L.PlaceOrder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place Order"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sipariş"
+          }
+        }
+      }
+    },
     "L.PrivacyPolicy" : {
       "localizations" : {
         "en" : {
@@ -373,6 +422,22 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Soyad"
+          }
+        }
+      }
+    },
+    "L.TotalPrice" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total Price"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toplam Ücret"
           }
         }
       }

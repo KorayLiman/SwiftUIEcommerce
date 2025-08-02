@@ -12,7 +12,7 @@ struct ECAsyncImage: View {
 
     @State private var image: Image? = nil
     @State private var isLoading = true
-    
+
     private var networkManager: NetworkManager {
         DIContainer.shared.synchronizedResolver.resolve(NetworkManager.self)!
     }
@@ -30,15 +30,19 @@ struct ECAsyncImage: View {
                     .resizable()
             }
         }
-        .taskOnce {
+        .task {
             let response = await networkManager.request(FileModel.self, path: .file(id: id))
             if let base64ImageString = response.data?.data {
                 let data = Data(base64Encoded: base64ImageString)
                 if let data = data, let uiImage = UIImage(data: data) {
-                    image = Image(uiImage: uiImage)
+                    await MainActor.run {
+                        image = Image(uiImage: uiImage)
+                    }
                 }
             }
-            isLoading = false
+            await MainActor.run {
+                isLoading = false
+            }
         }
     }
 }
