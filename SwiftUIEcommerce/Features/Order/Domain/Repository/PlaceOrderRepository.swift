@@ -8,6 +8,7 @@
 
 protocol IPlaceOrderRepository {
     func getAddressList() async -> BaseResponse<[AddressResponseModel]>
+    func placeOrder(request: PlaceOrderRequestModel) async -> BaseResponse<NullData>
 }
 
 
@@ -21,6 +22,10 @@ final class PlaceOrderRepository: IPlaceOrderRepository {
     
     func getAddressList() async -> BaseResponse<[AddressResponseModel]> {
         await placeOrderRemoteDS.getAddressList()
+    }
+    
+    func placeOrder(request: PlaceOrderRequestModel) async -> BaseResponse<NullData> {
+        await placeOrderRemoteDS.placeOrder(request: request)
     }
     
 }

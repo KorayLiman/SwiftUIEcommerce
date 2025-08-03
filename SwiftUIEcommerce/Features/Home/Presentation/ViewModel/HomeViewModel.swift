@@ -33,7 +33,9 @@ final class HomeViewModel {
                 }
 
             case .allCartItemsDeleted:
-                break
+                Task {
+                    await self.getCartItemsTotalCount()
+                }
             }
         }
         .store(in: &cancellables)

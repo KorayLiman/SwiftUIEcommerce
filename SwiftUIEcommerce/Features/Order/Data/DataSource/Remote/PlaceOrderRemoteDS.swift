@@ -7,10 +7,15 @@
 
 protocol IPlaceOrderRemoteDS {
     func getAddressList() async -> BaseResponse<[AddressResponseModel]>
+    func placeOrder(request: PlaceOrderRequestModel) async -> BaseResponse<NullData>
 }
 
 final class PlaceOrderRemoteDS: BaseRemoteDS, IPlaceOrderRemoteDS {
     func getAddressList() async -> BaseResponse<[AddressResponseModel]> {
         await networkManager.request([AddressResponseModel].self, path: .address, method: .get)
+    }
+    
+    func placeOrder(request: PlaceOrderRequestModel) async -> BaseResponse<NullData> {
+        await networkManager.request(path: .order, method: .post, parameters: request)
     }
 }

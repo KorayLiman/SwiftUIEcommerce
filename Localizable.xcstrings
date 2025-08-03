@@ -4,6 +4,12 @@
     "" : {
 
     },
+    "%@" : {
+
+    },
+    "L.AddAddress" : {
+
+    },
     "L.AddNewAddress" : {
       "localizations" : {
         "en" : {
@@ -35,6 +41,9 @@
           }
         }
       }
+    },
+    "L.AddressDescription" : {
+
     },
     "L.All" : {
       "extractionState" : "manual",
@@ -70,6 +79,22 @@
         }
       }
     },
+    "L.Bank Transfer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bank Transfer"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havale"
+          }
+        }
+      }
+    },
     "L.Cart" : {
       "localizations" : {
         "en" : {
@@ -85,6 +110,41 @@
           }
         }
       }
+    },
+    "L.Cash On Delivery" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cash On Delivery"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapıda Nakit Ödeme"
+          }
+        }
+      }
+    },
+    "L.ChoosePaymentMethod" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Payment Method"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ödeme Yöntemi Seçiniz"
+          }
+        }
+      }
+    },
+    "L.City" : {
+
     },
     "L.Code" : {
       "localizations" : {
@@ -182,22 +242,24 @@
         }
       }
     },
-    "L.DeleteAll" : {
-      "extractionState" : "stale",
+    "L.Credit Card" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete All"
+            "value" : "Credit Card"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tümünü Sil"
+            "value" : "Kredi Kartı"
           }
         }
       }
+    },
+    "L.District" : {
+
     },
     "L.Email" : {
       "localizations" : {

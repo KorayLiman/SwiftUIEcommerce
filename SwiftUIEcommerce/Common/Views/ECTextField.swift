@@ -13,6 +13,7 @@ struct ECTextField: View {
     @Binding var text: String
     var isSecure: Bool
     @State private var isTextVisible: Bool = false
+    
 
     init(icon: String? = nil, placeholder: LocalizedStringKey? = nil, text: Binding<String>, isSecure: Bool = false) {
         self.icon = icon
@@ -32,10 +33,11 @@ struct ECTextField: View {
             Group {
                 if isSecure && !isTextVisible {
                     SecureField(placeholder ?? "", text: $text)
+                        
                      
 
                 } else {
-                    TextField(placeholder ?? "", text: $text)
+                    TextField(placeholder ?? "", text: $text, axis: .vertical)
                 }
             }
             .padding(.all, 12)

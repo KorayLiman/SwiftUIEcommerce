@@ -38,24 +38,22 @@ struct RootScreen: View {
             case .unAuthenticated:
                 NavigationStack(path: $rootNavigator.path) {
                     LoginScreen().background(.ecBackgroundVariant)
-                    .navigationDestination(for: Route.self) { route in
-                        switch route {
-                        case .productList:
-                            Text("productList")
-                        case .productDetail:
-                            Text("productDetail")
-                        case .forgotPassword:
-                            ForgotPasswordScreen().background(.ecBackgroundVariant)
-                        case .resetPassword(let phoneCode, let phoneNumber):
-                            ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber).background(.ecBackgroundVariant)
+                        .navigationDestination(for: Route.self) { route in
+                            switch route {
+                            case .productList:
+                                Text("productList")
+                            case .productDetail:
+                                Text("productDetail")
+                            case .forgotPassword:
+                                ForgotPasswordScreen().background(.ecBackgroundVariant)
+                            case .resetPassword(let phoneCode, let phoneNumber):
+                                ResetPasswordScreen(phoneCode: phoneCode, phoneNumber: phoneNumber).background(.ecBackgroundVariant)
+                            }
                         }
-                    }
-                    .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarTitleDisplayMode(.inline)
                 }
-             
             }
         }
-     
 
         .overlay {
             if let toast = toastManager.getActiveToast {
