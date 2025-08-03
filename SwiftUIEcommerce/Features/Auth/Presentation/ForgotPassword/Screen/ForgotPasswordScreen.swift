@@ -14,7 +14,9 @@ struct ForgotPasswordScreen: View {
     var body: some View {
         VStack(spacing: 16) {
             @Bindable var viewModelBindable = viewModel
-            ECText(localizedStringKey: "L.ForgotPasswordDescriptionText", foregroundColor: .secondary, font: .body)
+            ECText(localizedStringKey: "L.ForgotPasswordDescriptionText")
+                .ecTextColor(.secondary)
+                .font(.body)
                 .multilineTextAlignment(.center)
                 .fontWeight(.semibold)
             HStack {
@@ -40,12 +42,15 @@ struct ForgotPasswordScreen: View {
                     .focused($focusedField, equals: .phoneNumber)
             }
 
-            ECFilledButton(localizedStringKey: "L.Next", maxWidth: .infinity, disabled: viewModel.phoneNumber.isEmpty || viewModel.phoneCode.isEmpty) {
+            ECFilledButton(localizedStringKey: "L.Next") {
                 focusedField = nil
                 Task{
                     await viewModel.sendOtp()
                 }
             }
+            .ecDisabled( viewModel.phoneNumber.isEmpty || viewModel.phoneCode.isEmpty)
+            .ecMaxWidth(.infinity)
+          
 
             Spacer()
         }

@@ -12,6 +12,7 @@
 		DB147E172E3E2FE6006F0FC5 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E162E3E2FE6006F0FC5 /* DequeModule */; };
 		DB147E192E3E2FE6006F0FC5 /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E182E3E2FE6006F0FC5 /* HashTreeCollections */; };
 		DB147E1B2E3E2FE6006F0FC5 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = DB147E1A2E3E2FE6006F0FC5 /* HeapModule */; };
+		DB14801E2E3E8F4E006F0FC5 /* ViewConfigurable in Frameworks */ = {isa = PBXBuildFile; productRef = DB14801D2E3E8F4E006F0FC5 /* ViewConfigurable */; };
 		DB8078692E2544CD00D1856C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB8078682E2544CD00D1856C /* Alamofire */; };
 		DBABB2472E336F8600E2DA80 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DBABB2462E336F8100E2DA80 /* README.md */; };
 		DBB4F38C2E242768004E7835 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DBB4F38B2E242768004E7835 /* Localizable.xcstrings */; };
@@ -46,6 +47,7 @@
 				DB8078692E2544CD00D1856C /* Alamofire in Frameworks */,
 				DBD86F722E364353004DFFC5 /* Swinject in Frameworks */,
 				DB147E1B2E3E2FE6006F0FC5 /* HeapModule in Frameworks */,
+				DB14801E2E3E8F4E006F0FC5 /* ViewConfigurable in Frameworks */,
 				DB147E172E3E2FE6006F0FC5 /* DequeModule in Frameworks */,
 				DB147E152E3E2FE6006F0FC5 /* Collections in Frameworks */,
 				DB147E132E3E2FE6006F0FC5 /* BitCollections in Frameworks */,
@@ -102,6 +104,7 @@
 				DB147E162E3E2FE6006F0FC5 /* DequeModule */,
 				DB147E182E3E2FE6006F0FC5 /* HashTreeCollections */,
 				DB147E1A2E3E2FE6006F0FC5 /* HeapModule */,
+				DB14801D2E3E8F4E006F0FC5 /* ViewConfigurable */,
 			);
 			productName = SwiftUIEcommerce;
 			productReference = DB86E2402E1FF3FC00B1B12B /* SwiftUIEcommerce.app */;
@@ -136,6 +139,7 @@
 				DB8078672E2544CD00D1856C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				DBD86F702E364353004DFFC5 /* XCRemoteSwiftPackageReference "Swinject" */,
 				DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				DB14801C2E3E8F4E006F0FC5 /* XCRemoteSwiftPackageReference "view-configurable" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DB86E2412E1FF3FC00B1B12B /* Products */;
@@ -383,6 +387,14 @@
 				minimumVersion = 1.2.1;
 			};
 		};
+		DB14801C2E3E8F4E006F0FC5 /* XCRemoteSwiftPackageReference "view-configurable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grindrllc/view-configurable";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
 		DB8078672E2544CD00D1856C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -426,6 +438,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB147E112E3E2FE6006F0FC5 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = HeapModule;
+		};
+		DB14801D2E3E8F4E006F0FC5 /* ViewConfigurable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB14801C2E3E8F4E006F0FC5 /* XCRemoteSwiftPackageReference "view-configurable" */;
+			productName = ViewConfigurable;
 		};
 		DB8078682E2544CD00D1856C /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

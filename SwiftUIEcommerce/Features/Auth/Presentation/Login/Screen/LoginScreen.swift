@@ -22,7 +22,9 @@ struct LoginScreen: View {
                                 viewModel.selectedTab = index
                             }
                         }) {
-                            ECText(localizedStringKey: LocalizedStringKey(viewModel.tabs[index]), foregroundColor: viewModel.selectedTab == index ? .ecAccent : .secondary, font: .headline)
+                            ECText(localizedStringKey: LocalizedStringKey(viewModel.tabs[index]))
+                                .ecTextColor(viewModel.selectedTab == index ? .ecAccent : .secondary)
+                                .font(.headline)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 12)
                         }
@@ -89,12 +91,14 @@ private struct LoginTabView: View {
                     }
                 }
 
-                ECFilledButton(localizedStringKey: "L.Login", maxWidth: .infinity, disabled: viewModel.usernameLogin.isEmpty || viewModel.passwordLogin.isEmpty) {
+                ECFilledButton(localizedStringKey: "L.Login") {
                     focusedField = nil
                     Task {
                         await viewModel.login()
                     }
                 }
+                .ecDisabled( viewModel.usernameLogin.isEmpty || viewModel.passwordLogin.isEmpty)
+                .ecMaxWidth(.infinity)
             }
         }
     }
@@ -194,12 +198,14 @@ private struct RegisterTabView: View {
                     }
                 }.padding(.horizontal, 12)
 
-                ECFilledButton(localizedStringKey: "L.Register", maxWidth: .infinity, disabled: viewModel.phoneCodeRegister.isEmpty || viewModel.phoneNumberRegister.isEmpty || viewModel.usernameRegister.isEmpty || viewModel.passwordRegister.isEmpty || viewModel.confirmPasswordRegister.isEmpty || viewModel.nameRegister.isEmpty || viewModel.surnameRegister.isEmpty || viewModel.emailRegister.isEmpty || !viewModel.isUserAgreementAcceptedRegister || !viewModel.isPrivacyPolicyAcceptedRegister) {
+                ECFilledButton(localizedStringKey: "L.Register") {
                     focusedField = nil
                     Task{
                         await  viewModel.register()
                     }
                 }
+                .ecDisabled( viewModel.phoneCodeRegister.isEmpty || viewModel.phoneNumberRegister.isEmpty || viewModel.usernameRegister.isEmpty || viewModel.passwordRegister.isEmpty || viewModel.confirmPasswordRegister.isEmpty || viewModel.nameRegister.isEmpty || viewModel.surnameRegister.isEmpty || viewModel.emailRegister.isEmpty || !viewModel.isUserAgreementAcceptedRegister || !viewModel.isPrivacyPolicyAcceptedRegister)
+                .ecMaxWidth(.infinity)
             }
         }
     }

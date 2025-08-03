@@ -18,6 +18,7 @@ enum RequestPath {
     case cartItem
     case deleteCartItem(id: Int)
     case deleteAll
+    case address
 
     var rawValue: String {
         switch self {
@@ -45,7 +46,8 @@ enum RequestPath {
             return "cart-item/\(id)"
         case .deleteAll:
             return "cart-item/delete-all"
+        case .address:
+            return "address"
         }
-
     }
 }

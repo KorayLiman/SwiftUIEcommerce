@@ -21,17 +21,23 @@ struct ProductCardView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                     VStack(alignment: .leading, spacing: 4) {
                         HStack(alignment: .top) {
-                            ECText(label: product.name ?? "", foregroundColor: .ecOnBackground, font: .headline)
+                            ECText(label: product.name ?? "")
+                                .ecTextColor(.ecOnBackground)
+                                .font(.headline)
                                 .lineLimit(2)
                                 .truncationMode(.tail)
                             Spacer()
-                            ECText(label: String(format: "%.2f ₺", product.price ?? 0), foregroundColor: .ecBackground, font: .footnote)
+                            ECText(label: String(format: "%.2f ₺", product.price ?? 0))
+                                .ecTextColor(.ecBackground)
+                                .font(.footnote)
                                 .fontWeight(.semibold)
                                 .padding(8)
                                 .background(.ecOnBackgroundVariant)
                                 .cornerRadius(12)
                         }
-                        ECText(label: product.description ?? "", foregroundColor: .ecOnBackgroundVariant, font: .subheadline)
+                        ECText(label: product.description ?? "")
+                            .ecTextColor(.ecOnBackgroundVariant)
+                            .font(.subheadline)
                             .lineLimit(3)
                             .truncationMode(.tail)
 
@@ -66,19 +72,24 @@ private struct PlusMinusBotton: View {
     var body: some View {
         HStack(spacing: 0) {
             let iconName = productListViewModel.getCartItemCount(product: product) == 1 ? "trash" : "minus"
-            ECIconButton(iconName: iconName, size: 16) {
+            ECIconButtonRaw(iconName: iconName) {
                 Task{
                     await productListViewModel.removeFromCart(product: product)
                 }
             }
-            ECText(label: String(productListViewModel.getCartItemCount(product: product)), foregroundColor: .ecOnBackground, font: .headline)
+            .ecSize(20)
+            ECText(label: String(productListViewModel.getCartItemCount(product: product)))
+                .ecTextColor(.ecOnBackground)
+                .font(.headline)
                 .padding(.horizontal, 12)
-            ECIconButton(iconName: "plus", size: 16) {
+            ECIconButtonRaw(iconName: "plus") {
                 Task{
                     await productListViewModel.addToCart(product: product)
                 }
             }
+            .ecSize(20)
         }
+        .padding(8)
         .background(Capsule().fill(Color.ecBackgroundVariant2))
     }
 }

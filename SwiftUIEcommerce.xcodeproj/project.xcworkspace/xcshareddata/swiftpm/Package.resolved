@@ -1,5 +1,5 @@
 {
-  "originHash" : "437380e23a51b362f8a5236f53035e7dbdec7614cba771428a4353f548ce59e6",
+  "originHash" : "678a88273b2f0e2a463e22bae6bd6645ea16fec7dcb4add0263e96498d8fdc13",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -20,12 +20,30 @@
       }
     },
     {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
+      }
+    },
+    {
       "identity" : "swinject",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Swinject/Swinject.git",
       "state" : {
         "revision" : "be9dbcc7b86811bc131539a20c6f9c2d3e56919f",
         "version" : "2.9.1"
+      }
+    },
+    {
+      "identity" : "view-configurable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/grindrllc/view-configurable",
+      "state" : {
+        "revision" : "50721fcf8cc95119b12a10102ba748a4f317d49c",
+        "version" : "0.1.1"
       }
     }
   ],

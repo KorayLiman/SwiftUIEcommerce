@@ -55,16 +55,22 @@ private struct TotalCountBottomView: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading) {
                 let totalPrice = viewModel.mergedCartItems.reduce(0) { $0 + ($1.product.price! * Double($1.quantity)) }
-                ECText(localizedStringKey: "L.TotalPrice", foregroundColor: .ecOnBackgroundVariant2, font: .subheadline)
+                ECText(localizedStringKey: "L.TotalPrice")
+                    .ecTextColor(.ecOnBackgroundVariant2)
+                    .font(.subheadline)
                     .fontWeight(.semibold)
-                ECText(label: "\(String(format: "%.2f", totalPrice)) TL", foregroundColor: .ecAccent, font: .title2)
+                ECText(label: "\(String(format: "%.2f", totalPrice)) TL")
+                    .ecTextColor(.ecAccent)
+                    .font(.title2)
                     .fontWeight(.semibold)
             }
+        
             Spacer()
 
-            ECFilledButton(localizedStringKey: "L.Continue", disabled: viewModel.mergedCartItems.isEmpty) {
+            ECFilledButton(localizedStringKey: "L.Continue") {
                 viewModel.goToPlaceOrderPage()
             }
+            .ecDisabled(viewModel.mergedCartItems.isEmpty)
         }
         .padding(.horizontal, 16)
         .frame(maxWidth: .infinity, maxHeight: 80)

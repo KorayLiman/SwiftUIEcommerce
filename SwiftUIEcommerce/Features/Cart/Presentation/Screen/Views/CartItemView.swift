@@ -22,17 +22,23 @@ struct CartItemView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                     VStack(alignment: .leading, spacing: 4) {
                         HStack(alignment: .top) {
-                            ECText(label: product.name ?? "", foregroundColor: .ecOnBackground, font: .headline)
+                            ECText(label: product.name ?? "")
+                                .ecTextColor(.ecOnBackground)
+                                .font(.headline)
                                 .lineLimit(2)
                                 .truncationMode(.tail)
                             Spacer()
-                            ECText(label: String(format: "%.2f ₺", (product.price ?? 0) * Double(item.quantity)), foregroundColor: .ecBackground, font: .footnote)
+                            ECText(label: String(format: "%.2f ₺", (product.price ?? 0) * Double(item.quantity)))
+                                .ecTextColor(.ecBackground)
+                                .font(.footnote)
                                 .fontWeight(.semibold)
                                 .padding(8)
                                 .background(.ecOnBackgroundVariant)
                                 .cornerRadius(12)
                         }
-                        ECText(label: product.description ?? "", foregroundColor: .ecOnBackgroundVariant, font: .subheadline)
+                        ECText(label: product.description ?? "")
+                            .ecTextColor(.ecOnBackgroundVariant)
+                            .font(.subheadline)
                             .lineLimit(3)
                             .truncationMode(.tail)
 
@@ -41,26 +47,33 @@ struct CartItemView: View {
                             Spacer()
                             if cartViewModel.getCartItemCount(product: product) == 0 { ECIconButton(iconName: "plus") {
                                 Task {
-                                     await cartViewModel.addToCart(product: product)
+                                    await cartViewModel.addToCart(product: product)
                                 }
                             }
                             }
                             else {
                                 HStack(spacing: 0) {
                                     let iconName = cartViewModel.getCartItemCount(product: product) == 1 ? "trash" : "minus"
-                                    ECIconButton(iconName: iconName, size: 16) {
+                                    ECIconButtonRaw(iconName: iconName) {
                                         Task {
-                                             await cartViewModel.removeFromCart(product: product)
+                                            await cartViewModel.removeFromCart(product: product)
                                         }
                                     }
-                                    ECText(label: String(cartViewModel.getCartItemCount(product: product)), foregroundColor: .ecOnBackground, font: .headline)
+                                    .ecSize(20)
+
+                                    ECText(label: String(cartViewModel.getCartItemCount(product: product)))
+                                        .ecTextColor(.ecOnBackground)
+                                        .font(.headline)
                                         .padding(.horizontal, 12)
-                                    ECIconButton(iconName: "plus", size: 16) {
+                                        
+                                    ECIconButtonRaw(iconName: "plus") {
                                         Task {
-                                              await cartViewModel.addToCart(product: product)
+                                            await cartViewModel.addToCart(product: product)
                                         }
                                     }
+                                    .ecSize(20)
                                 }
+                                .padding(8)
                                 .background(Capsule().fill(Color.ecBackgroundVariant2))
                             }
                         }

@@ -4,6 +4,38 @@
     "" : {
 
     },
+    "L.AddNewAddress" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add New Address"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni Adres Ekle"
+          }
+        }
+      }
+    },
+    "L.Address" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres"
+          }
+        }
+      }
+    },
     "L.All" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -66,6 +98,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kod"
+          }
+        }
+      }
+    },
+    "L.CompleteOrder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Complete Order"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siparişi Tamamla"
           }
         }
       }
@@ -281,6 +329,54 @@
         }
       }
     },
+    "L.PaymentMethod" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payment Method"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ödeme Yöntemi"
+          }
+        }
+      }
+    },
+    "L.PaymentNote" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payment Note"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sipariş Notu"
+          }
+        }
+      }
+    },
+    "L.PaymentNotePlaceholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can put payment note here"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sipariş notunuzu buraya girebilirsiniz"
+          }
+        }
+      }
+    },
     "L.PhoneNumber" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -406,6 +502,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lütfen gönderilen kodu giriniz ve yeni şifre belirleyiniz."
+          }
+        }
+      }
+    },
+    "L.SelectAddress" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Address"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres Seçin"
           }
         }
       }

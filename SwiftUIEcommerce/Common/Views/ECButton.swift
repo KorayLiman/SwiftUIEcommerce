@@ -6,23 +6,23 @@
 //
 
 import SwiftUI
+import ViewConfigurable
 
 struct ECTextButton: View {
     let label: String?
     let localizedStringKey: LocalizedStringKey?
     let action: () -> Void
-    let maxWidth: CGFloat?
 
-    init(label: String, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
+    init(label: String, action: @escaping () -> Void) {
         self.label = label
-        self.maxWidth = maxWidth
+
         self.action = action
         self.localizedStringKey = nil
     }
 
-    init(localizedStringKey: LocalizedStringKey, maxWidth: CGFloat? = nil, action: @escaping () -> Void) {
+    init(localizedStringKey: LocalizedStringKey, action: @escaping () -> Void) {
         self.localizedStringKey = localizedStringKey
-        self.maxWidth = maxWidth
+
         self.action = action
         self.label = nil
     }
@@ -31,99 +31,130 @@ struct ECTextButton: View {
         Button(action: action) {
             Group {
                 if let label = label {
-                    ECText(label: label, foregroundColor: .ecAccent, font: .body)
-                        .frame(maxWidth: maxWidth)
+                    ECText(label: label)
+                        .ecTextColor(.ecAccent)
+                        .font(.body)
                 }
                 else {
-                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .ecAccent, font: .body)
-                        .frame(maxWidth: maxWidth)
+                    ECText(localizedStringKey: self.localizedStringKey!)
+                        .ecTextColor(.ecAccent)
+                        .font(.body)
                 }
             }
         }
     }
 }
 
+@ViewConfigurable
 struct ECFilledButton: View {
     let label: String?
     let localizedStringKey: LocalizedStringKey?
     let action: () -> Void
-    let maxWidth: CGFloat?
-    let disabled: Bool
 
-    init(label: String, maxWidth: CGFloat? = nil, disabled: Bool = false, action: @escaping () -> Void) {
+    init(label: String, action: @escaping () -> Void) {
         self.label = label
-        self.maxWidth = maxWidth
+
         self.action = action
         self.localizedStringKey = nil
-        self.disabled = disabled
     }
 
-    init(localizedStringKey: LocalizedStringKey, maxWidth: CGFloat? = nil, disabled: Bool = false, action: @escaping () -> Void) {
+    init(localizedStringKey: LocalizedStringKey, action: @escaping () -> Void) {
         self.localizedStringKey = localizedStringKey
         self.label = nil
-        self.maxWidth = maxWidth
         self.action = action
-        self.disabled = disabled
+    }
+
+    private var viewConfig = ViewConfiguration()
+
+    struct ViewConfiguration {
+        var ecDisabled: Bool = false
+        var ecMaxWidth: CGFloat? = nil
+        var ecMaxHeight: CGFloat? = nil
     }
 
     var body: some View {
         Button(action: action) {
             Group {
                 if let label = label {
-                    ECText(label: label, foregroundColor: .ecOnAccent, font: .headline)
+                    ECText(label: label)
+                        .ecTextColor(.ecOnAccent)
+                        .font(.headline)
                 }
                 else {
-                    ECText(localizedStringKey: localizedStringKey!, foregroundColor: .ecOnAccent, font: .headline)
+                    ECText(localizedStringKey: self.localizedStringKey!)
+                        .ecTextColor(.ecOnAccent)
+                        .font(.headline)
                 }
             }
-
-            .frame(maxWidth: maxWidth)
-            .padding(.vertical, 12)
+            .frame(maxWidth: self.viewConfig.ecMaxWidth, maxHeight: self.viewConfig.ecMaxHeight)
+            .padding(.vertical, 6)
             .padding(.horizontal, 24)
-            .conditionalBackground(.ecAccent, if: !disabled)
-        
-            .cornerRadius(12)
-        }    
-        .disabled(disabled)
+        }
+
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.roundedRectangle(radius: 12))
+        .disabled(viewConfig.ecDisabled)
     }
 }
 
+@ViewConfigurable
 struct ECIconButton: View {
     let iconName: String
     let action: () -> Void
-    let size: CGFloat
-    let disabled: Bool
 
-    init(iconName: String, size: CGFloat = 20, disabled: Bool = false, action: @escaping () -> Void) {
+    init(iconName: String, action: @escaping () -> Void) {
         self.iconName = iconName
-        self.size = size
         self.action = action
-        self.disabled = disabled
+    }
+
+    private var viewConfig = ViewConfiguration()
+
+    struct ViewConfiguration {
+        var ecSize: CGFloat = 20
+        var ecDisabled: Bool = false
     }
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: iconName)
+            Image(systemName: self.iconName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: size, height: size)
+                .frame(width: self.viewConfig.ecSize, height: self.viewConfig.ecSize)
                 .foregroundColor(.ecOnAccent)
-                .padding(8)
-                .conditionalBackground(.ecAccent, if: !disabled)
-                .clipShape(Circle())
+                .padding(2)
         }
-    
-        .disabled(disabled)
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.circle)
+        .disabled(viewConfig.ecDisabled)
     }
 }
 
-private extension View {
-    @ViewBuilder
-      func conditionalBackground(_ color: Color, if condition: Bool) -> some View {
-          if condition {
-              self.background(color)
-          } else {
-              self.background(.gray.opacity(0.45))
-          }
-      }
+@ViewConfigurable
+struct ECIconButtonRaw: View {
+    let iconName: String
+    let action: () -> Void
+
+    init(iconName: String, action: @escaping () -> Void) {
+        self.iconName = iconName
+        self.action = action
+    }
+
+    private var viewConfig = ViewConfiguration()
+
+    struct ViewConfiguration {
+        var ecSize: CGFloat = 20
+        var ecDisabled: Bool = false
+    }
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: self.iconName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: viewConfig.ecSize, height: viewConfig.ecSize)
+                .foregroundColor(.ecAccent)
+        }
+        .buttonStyle(.plain)
+        .disabled(viewConfig.ecDisabled)
+    }
 }

@@ -22,7 +22,9 @@ struct ResetPasswordScreen: View {
     var body: some View {
         VStack(spacing: 16) {
             @Bindable var viewModelBindable = viewModel
-            ECText(localizedStringKey: "L.ResetPasswordDescriptionText", foregroundColor: .secondary, font: .body)
+            ECText(localizedStringKey: "L.ResetPasswordDescriptionText")
+                .ecTextColor(.secondary)
+                .font(.body)
 
                 .multilineTextAlignment(.center)
                 .fontWeight(.semibold)
@@ -48,12 +50,14 @@ struct ResetPasswordScreen: View {
                 .focused($focusedField, equals: .confirmPassword)
                 .padding(.bottom, 8)
 
-            ECFilledButton(localizedStringKey: "L.Confirm", maxWidth: .infinity, disabled: viewModel.otpCode == "" || viewModel.password == "" || viewModel.confirmPassword != viewModel.password) {
+            ECFilledButton(localizedStringKey: "L.Confirm") {
                 focusedField = nil
                 Task{
                     await   viewModel.resetPassword(phoneCode: phoneCode, phoneNumber: phoneNumber)
                 }
             }
+            .ecDisabled( viewModel.otpCode == "" || viewModel.password == "" || viewModel.confirmPassword != viewModel.password)
+            .ecMaxWidth(.infinity)
 
             Spacer()
         }

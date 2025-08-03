@@ -56,5 +56,8 @@ final class DIContainer {
         container.register(ICartRepository.self) { _ in
             CartRepository(cartRemoteDS: CartRemoteDS())
         }.inObjectScope(.container)
+        container.register(IPlaceOrderRepository.self) { _ in
+            PlaceOrderRepository(placeOrderRemoteDS: PlaceOrderRemoteDS())
+        }.inObjectScope(.container)
     }
 }

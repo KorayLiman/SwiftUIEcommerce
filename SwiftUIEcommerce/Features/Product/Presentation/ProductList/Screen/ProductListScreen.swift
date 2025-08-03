@@ -29,7 +29,8 @@ private struct CategoriesHStackView: View {
         ECScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 12) {
                 ForEach(viewModel.categories, id: \.self) { (category: CategoryResponseModel) in
-                    ECText(label: category.name ?? "", foregroundColor: viewModel.selectedCategory == category ? .ecOnAccent : .ecOnBackground)
+                    ECText(label: category.name ?? "")
+                        .ecTextColor(viewModel.selectedCategory == category ? .ecOnAccent : .ecOnBackground)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
                         .background(viewModel.selectedCategory == category ? .ecAccent : .ecBackgroundVariant2)
