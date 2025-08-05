@@ -29,8 +29,8 @@ struct HomeScreen: View {
             }.tag(0)
 
             NavigationStack {
-                ECText(label: "Home2")
-                    .toolbarBackground(.red, for: .tabBar)
+                ProfileMenuScreen()
+                    .toolbarBackground(.ecBackgroundVariant, for: .tabBar)
                     .toolbarBackground(.visible, for: .tabBar)
             }
             .tabItem {

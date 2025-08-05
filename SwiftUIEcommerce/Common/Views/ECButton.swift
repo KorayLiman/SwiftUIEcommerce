@@ -153,8 +153,12 @@ struct ECIconButtonRaw: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: viewConfig.ecSize, height: viewConfig.ecSize)
                 .foregroundColor(.ecAccent)
+            
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.circle)
+        .tint(.clear)
+        .frame(width: viewConfig.ecSize + 8, height: viewConfig.ecSize + 8)
         .disabled(viewConfig.ecDisabled)
     }
 }

@@ -45,6 +45,9 @@
     "L.AddressDescription" : {
 
     },
+    "L.Addresses" : {
+
+    },
     "L.All" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -126,6 +129,9 @@
           }
         }
       }
+    },
+    "L.ChangePassword" : {
+
     },
     "L.ChoosePaymentMethod" : {
       "localizations" : {
@@ -326,6 +332,9 @@
         }
       }
     },
+    "L.Logout" : {
+
+    },
     "L.Name" : {
       "localizations" : {
         "en" : {
@@ -374,6 +383,9 @@
           }
         }
       }
+    },
+    "L.Orders" : {
+
     },
     "L.Password" : {
       "localizations" : {
@@ -647,6 +659,9 @@
           }
         }
       }
+    },
+    "L.Version" : {
+
     },
     "productDetail" : {
 

@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+import ViewConfigurable
 
+@ViewConfigurable
 struct ECTextField: View {
     var icon: String?
     var placeholder: LocalizedStringKey?
@@ -21,6 +23,13 @@ struct ECTextField: View {
         self._text = text
         self.isSecure = isSecure
     }
+    
+    private var viewConfig = ViewConfiguration()
+
+    struct ViewConfiguration {
+        var ecBackgroundColor: Color = .ecBackgroundVariant2
+    }
+
 
     var body: some View {
         HStack {
@@ -54,7 +63,7 @@ struct ECTextField: View {
                 .padding(.trailing, 12)
             }
         }
-        .background(.ecBackgroundVariant2)
+        .background(viewConfig.ecBackgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }

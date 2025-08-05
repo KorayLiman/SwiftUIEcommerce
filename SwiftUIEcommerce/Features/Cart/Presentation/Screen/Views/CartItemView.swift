@@ -59,7 +59,7 @@ struct CartItemView: View {
                                             await cartViewModel.removeFromCart(product: product)
                                         }
                                     }
-                                    .ecSize(20)
+                                    .ecSize(16)
 
                                     ECText(label: String(cartViewModel.getCartItemCount(product: product)))
                                         .ecTextColor(.ecOnBackground)
@@ -71,7 +71,7 @@ struct CartItemView: View {
                                             await cartViewModel.addToCart(product: product)
                                         }
                                     }
-                                    .ecSize(20)
+                                    .ecSize(16)
                                 }
                                 .padding(8)
                                 .background(Capsule().fill(Color.ecBackgroundVariant2))

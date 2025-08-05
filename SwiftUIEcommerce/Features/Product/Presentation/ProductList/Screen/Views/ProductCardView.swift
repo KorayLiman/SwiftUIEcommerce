@@ -77,7 +77,7 @@ private struct PlusMinusBotton: View {
                     await productListViewModel.removeFromCart(product: product)
                 }
             }
-            .ecSize(20)
+            .ecSize(16)
             ECText(label: String(productListViewModel.getCartItemCount(product: product)))
                 .ecTextColor(.ecOnBackground)
                 .font(.headline)
@@ -87,7 +87,7 @@ private struct PlusMinusBotton: View {
                     await productListViewModel.addToCart(product: product)
                 }
             }
-            .ecSize(20)
+            .ecSize(16)
         }
         .padding(8)
         .background(Capsule().fill(Color.ecBackgroundVariant2))

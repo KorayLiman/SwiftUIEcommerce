@@ -69,4 +69,15 @@ final class PlaceOrderViewModel {
             rootNavigator.popCartToRoot()
         }
     }
+    
+    func addNewAddress(address: AddAddressRequestModel) async {
+        let response = await withLoader {
+            await self.placeOrderRepository.addAddress(request: address).showMessage()
+        }
+        
+        if response.isSuccess {
+            showAddAddressSheet = false
+            await getAddressList()
+        }
+    }
 }

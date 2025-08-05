@@ -102,26 +102,47 @@ private struct AddressSheetView: View {
     @State private var district: String = ""
     @State private var addressDescription: String = ""
     
+    @Environment(PlaceOrderViewModel.self) private var viewModel
+    
     var body: some View {
-        List {
+        Form {
             Section {
                 ECTextField(placeholder: "L.Name", text: $name)
-                
+                    .ecBackgroundColor(.clear)
                 ECTextField(placeholder: "L.City", text: $city)
+                    .ecBackgroundColor(.clear)
                 ECTextField(placeholder: "L.District", text: $district)
+                    .ecBackgroundColor(.clear)
                 ECTextField(placeholder: "L.AddressDescription", text: $addressDescription)
+                    .ecBackgroundColor(.clear)
                     .lineLimit(4, reservesSpace: true)
                 ECFilledButton(localizedStringKey: "L.AddAddress") {
+                    let addressRequestModel = AddAddressRequestModel(name: name, city: city, district: district, addressDescription: addressDescription)
+                    Task {
+                        await viewModel.addNewAddress(address: addressRequestModel)
+                    }
                 }
                 .ecMaxWidth(.infinity)
                 .disabled(name.isEmpty || city.isEmpty || district.isEmpty || addressDescription.isEmpty)
             }
-            
-      
-            
+            header: {
+                HStack {
+                    ECText(localizedStringKey: "L.AddNewAddress")
+                        .ecTextColor(.ecOnBackgroundVariant1)
+                    Spacer()
+                    ECIconButton(iconName: "xmark") {
+                        viewModel.showAddAddressSheet = false
+                    }
+                    .ecSize(14)
+                }
+            }
         }
-       
     }
+}
+
+#Preview("Add New Address Sheet") {
+    AddressSheetView()
+        .environment(PlaceOrderViewModel())
 }
 
 #Preview {
