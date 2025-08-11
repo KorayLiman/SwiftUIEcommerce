@@ -10,8 +10,6 @@ To run the REST API used in this project, you can check out the following reposi
 
 ## 🎥 Demo Video
 
-<video src="https://github.com/KorayLiman/SwiftUIEcommerce/blob/main/Screenshots/video_recording.mp4" width="200" height= "450" controls></video>
-
 ## 📸 Screenshots
 
 Here are some screenshots of the application:
