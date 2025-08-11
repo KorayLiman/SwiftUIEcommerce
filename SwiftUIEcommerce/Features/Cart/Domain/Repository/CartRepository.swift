@@ -12,6 +12,7 @@ protocol ICartRepository {
     func removeFromCart(_ requestModel: RemoveFromCartRequestModel) async -> BaseResponse<NullData>
     func getCartItems() async -> BaseResponse<[CartItemResponseModel]>
     func deleteAllCartItems() async -> BaseResponse<NullData>
+    func deleteAllCartItemsLocally()
     var cartEventStream: PassthroughSubject<CartEvent, Never> { get }
 }
 
@@ -50,6 +51,10 @@ final class CartRepository: ICartRepository {
             self.cartEventStream.send(.allCartItemsDeleted)
         }
         return result
+    }
+
+    func deleteAllCartItemsLocally() {
+        self.cartEventStream.send(.allCartItemsDeleted)
     }
 }
 

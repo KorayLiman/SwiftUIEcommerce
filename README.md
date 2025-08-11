@@ -1,21 +1,53 @@
+# 🛒 SwiftUI MVVM Clean Architecture E-Commerce App
+
+A simple E-Commerce application built with **SwiftUI**.
+
+## 🔗 Backend API
+
+To run the REST API used in this project, you can check out the following repository:
+
+[ECommerceApi - GitHub Repository](https://github.com/huseyinozkan/ECommerceApi)
+
+## 🎥 Demo Video
+
+<video src="Screenshots/video_recording.mp4" width="200" height= "450" controls></video>
+
 ## 📸 Screenshots
 
 Here are some screenshots of the application:
 
-### 🔐 Authorization
+### Light Theme
 
 <p align="left">
-  <img src="Screenshots/login.png" alt="Login Screen" width="200" height= "450"/>
-  <img src="Screenshots/register.png" alt="Register Screen" width="200" height= "450"/>
-  <img src="Screenshots/forgot_password.png" alt="Forgot Password Screen" width="200" height= "450"/>
-  <img src="Screenshots/reset_password.png" alt="Forgot Password Screen" width="200" height= "450"/>
+  <img src="Screenshots/l1.png" width="200" height= "450"/>
+  <img src="Screenshots/l2.png" width="200" height= "450"/>
+  <img src="Screenshots/l3.png" width="200" height= "450"/>
+  <img src="Screenshots/l4.png" width="200" height= "450"/>
+  <img src="Screenshots/l5.png" width="200" height= "450"/>
+  <img src="Screenshots/l6.png" width="200" height= "450"/>
+  <img src="Screenshots/l7.png" width="200" height= "450"/>
+  <img src="Screenshots/l8.png" width="200" height= "450"/>
+  <img src="Screenshots/l9.png" width="200" height= "450"/>
+  <img src="Screenshots/l10.png" width="200" height= "450"/>
+  <img src="Screenshots/l11.png" width="200" height= "450"/>
+  <img src="Screenshots/l12.png" width="200" height= "450"/>
+  <img src="Screenshots/l13.png" width="200" height= "450"/>
 </p>
 
-
-### 🛍️ Product List
+### Dark Theme
 
 <p align="left">
-  <img src="Screenshots/product_list.png" alt="Product List" width="200" height= "450"/>
-  <img src="Screenshots/product_list2.png" alt="Product List2" width="200" height= "450"/>
- 
+ <img src="Screenshots/d1.png" width="200" height= "450"/>
+  <img src="Screenshots/d2.png" width="200" height= "450"/>
+  <img src="Screenshots/d3.png" width="200" height= "450"/>
+  <img src="Screenshots/d4.png" width="200" height= "450"/>
+  <img src="Screenshots/d5.png" width="200" height= "450"/>
+  <img src="Screenshots/d6.png" width="200" height= "450"/>
+  <img src="Screenshots/d7.png" width="200" height= "450"/>
+  <img src="Screenshots/d8.png" width="200" height= "450"/>
+  <img src="Screenshots/d9.png" width="200" height= "450"/>
+  <img src="Screenshots/d10.png" width="200" height= "450"/>
+  <img src="Screenshots/d11.png" width="200" height= "450"/>
+  <img src="Screenshots/d12.png" width="200" height= "450"/>
+  <img src="Screenshots/d13.png" width="200" height= "450"/>
 </p>

@@ -24,21 +24,20 @@ struct ProfileMenuScreen: View {
             .listRowBackground(Color.ecOnBackground)
 
             Section {
-                NavigationLink(destination: ECText(label: "settings")
-                    .ecTextColor(.ecOnBackground)
+                NavigationLink(destination: OrdersScreen()
+
                 ) {
                     ECText(localizedStringKey: "L.Orders")
                         .ecTextColor(.ecOnBackground)
                 }
-                NavigationLink(destination: ECText(label: "addressed")
-                    .ecTextColor(.ecOnBackground)
+                NavigationLink(destination: AddressesScreen()
+                   
                 ) {
                     ECText(localizedStringKey: "L.Addresses")
                         .ecTextColor(.ecOnBackground)
                 }
 
-                NavigationLink(destination: ECText(label: "change password")
-                    .ecTextColor(.ecOnBackground)
+                NavigationLink(destination: ChangePasswordScreen()
                 ) {
                     ECText(localizedStringKey: "L.ChangePassword")
                         .ecTextColor(.ecOnBackground)
@@ -62,7 +61,7 @@ struct ProfileMenuScreen: View {
             .listRowBackground(Color.clear)
         }
         .scrollContentBackground(.hidden)
-        .background(.ecBackgroundVariant1)
+        .background(.ecBackgroundVariant)
         .navigationTitle("L.Profile")
         .navigationBarTitleDisplayMode(.inline)
         .taskOnce {

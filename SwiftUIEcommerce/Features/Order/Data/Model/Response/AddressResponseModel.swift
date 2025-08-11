@@ -14,9 +14,7 @@ struct AddressResponseModel: Codable, Hashable, Identifiable, Equatable {
     let district: String?
     let addressDescription: String?
     
-    
-   // moc adress
-    static var mock:   AddressResponseModel {
-        AddressResponseModel(id: Int.random(in: 1...9999), createdDate: "2025-08-02T12:00:00Z", lastModifiedDate: "2025-08-02T12:00:00Z", name: "John Doe", city: "New York", district: "Manhattan", addressDescription: "123 Main St, Apt 4B")
+    static var mock: AddressResponseModel {
+        AddressResponseModel(id: Int.random(in: 1 ... 9999), createdDate: "2025-08-02T12:00:00Z", lastModifiedDate: "2025-08-02T12:00:00Z", name: "John Doe", city: "New York", district: "Manhattan", addressDescription: "123 Main St, Apt 4B")
     }
 }

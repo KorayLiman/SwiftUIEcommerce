@@ -10,14 +10,14 @@ import Observation
 @MainActor
 @Observable
 final class PlaceOrderViewModel {
-    init(placeOrderRepository: IPlaceOrderRepository? = nil, rootNavigator: Navigator? = nil, cartRepository: ICartRepository? = nil) {
-        self.placeOrderRepository = placeOrderRepository ?? DIContainer.shared.synchronizedResolver.resolve(IPlaceOrderRepository.self)!
+    init(orderRepository: IOrderRepository? = nil, rootNavigator: Navigator? = nil, cartRepository: ICartRepository? = nil) {
+        self.orderRepository = orderRepository ?? DIContainer.shared.synchronizedResolver.resolve(IOrderRepository.self)!
         
         self.rootNavigator = rootNavigator ?? DIContainer.shared.synchronizedResolver.resolve(Navigator.self, name: Navigators.rootNavigator.rawValue)!
         self.cartRepository = cartRepository ?? DIContainer.shared.synchronizedResolver.resolve(ICartRepository.self)!
     }
     
-    private let placeOrderRepository: IPlaceOrderRepository
+    private let orderRepository: IOrderRepository
     private let cartRepository: ICartRepository
     
     var selectedAddress: AddressResponseModel?
@@ -26,7 +26,7 @@ final class PlaceOrderViewModel {
     
     func getAddressList() async {
         let response = await withLoader {
-            await self.placeOrderRepository.getAddressList()
+            await self.orderRepository.getAddressList()
         }
         
         if let data = response.data {
@@ -45,7 +45,6 @@ final class PlaceOrderViewModel {
     
     let paymentMethods: [String] = [
         String(localized: "L.Cash On Delivery"),
-        
         String(localized: "L.Credit Card"),
         String(localized: "L.Bank Transfer"),
     ]
@@ -58,21 +57,18 @@ final class PlaceOrderViewModel {
         )
         
         let response = await withLoader {
-            await self.placeOrderRepository.placeOrder(request: requestModel).showMessage()
+            await self.orderRepository.placeOrder(request: requestModel).showMessage()
         }
             
         if response.isSuccess {
-            _ = await withLoader {
-                await self.cartRepository.deleteAllCartItems()
-            }
-            
+            self.cartRepository.deleteAllCartItemsLocally()
             rootNavigator.popCartToRoot()
         }
     }
     
     func addNewAddress(address: AddAddressRequestModel) async {
         let response = await withLoader {
-            await self.placeOrderRepository.addAddress(request: address).showMessage()
+            await self.orderRepository.addAddress(request: address).showMessage()
         }
         
         if response.isSuccess {

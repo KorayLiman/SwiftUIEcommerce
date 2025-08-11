@@ -19,7 +19,10 @@ enum RequestPath {
     case deleteCartItem(id: Int)
     case deleteAll
     case address
+    case deleteAddress(id: Int)
     case order
+    case updateOrderStatus
+    case changePassword
 
     var rawValue: String {
         switch self {
@@ -51,6 +54,12 @@ enum RequestPath {
             return "address"
         case .order:
             return "order"
+        case .updateOrderStatus:
+            return "order/update-order-status"
+        case .deleteAddress(let id):
+            return "address/\(id)"
+        case .changePassword:
+            return "auth/update-password"
         }
     }
 }
