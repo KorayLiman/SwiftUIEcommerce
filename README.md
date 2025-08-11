@@ -10,6 +10,10 @@ To run the REST API used in this project, you can check out the following reposi
 
 ## 🎥 Demo Video
 
+
+https://github.com/user-attachments/assets/d7fe0f83-cdb7-499c-ab09-5e4fe6757b2b
+
+
 ## 📸 Screenshots
 
 Here are some screenshots of the application:
